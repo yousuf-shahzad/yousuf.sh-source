@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -7,12 +7,40 @@ const Header = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    // Prevent scrolling and interaction when menu is open
+    useEffect(() => {
+        if (isMenuOpen) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.pointerEvents = 'none';
+            
+            // Restore pointer events only on the menu and overlay
+            const menuAndOverlay = document.querySelectorAll('.side-menu, .menu-overlay, .ham');
+            menuAndOverlay.forEach(el => {
+                el.style.pointerEvents = 'auto';
+            });
+        } else {
+            document.body.style.overflow = 'auto';
+            document.body.style.pointerEvents = 'auto';
+        }
+
+        // Cleanup function to reset styles
+        return () => {
+            document.body.style.overflow = 'auto';
+            document.body.style.pointerEvents = 'auto';
+        };
+    }, [isMenuOpen]);
+
     return (
         <div>
             <header className="fixed top-0 left-0 right-0 z-50 p-4 flex justify-between items-center">
-                <a href="/" className="text-2xl brand-text header-title text-center md:text-left">YOUSUF.SH</a>
+                <a 
+                    href="/" 
+                    className={`text-2xl brand-text header-title text-center md:text-left md:opacity-100
+                        ${isMenuOpen ? 'opacity-0' : ''} transition-opacity duration-200`}
+                >
+                    YOUSUF.SH
+                </a>
                 
-                {/* Original SVG Hamburger Menu */}
                 <svg 
                     className={`ham hamRotate ham1 w-10 h-10 cursor-pointer ${isMenuOpen ? 'active' : ''}`} 
                     viewBox="0 0 100 100" 
@@ -36,7 +64,7 @@ const Header = () => {
 
             {/* Side Menu */}
             <div 
-                className={`fixed top-0 right-0 h-full -tracking-5 w-full md:w-2/5 bg-white shadow-lg transform transition-transform duration-500 ease-out ${
+                className={`side-menu fixed top-0 right-0 h-full -tracking-5 w-full md:w-2/5 bg-white shadow-lg transform transition-transform duration-500 ease-out ${
                     isMenuOpen ? 'translate-x-0' : 'translate-x-full'
                 } z-40 pt-20 md:pt-10`}
             >
@@ -45,7 +73,7 @@ const Header = () => {
                         <li className="flex justify-between items-center">
                             <p className='text-3xl md:text-4xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-left font-medium'>/01</p>
                             <a 
-                                href="#home" 
+                                href="/home" 
                                 className="text-6xl md:text-7xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-right"
                                 onClick={toggleMenu}
                             >
@@ -55,7 +83,7 @@ const Header = () => {
                         <li className="flex justify-between items-center">
                             <p className='text-3xl md:text-4xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-left font-medium'>/02</p>
                             <a 
-                                href="#about" 
+                                href="/about" 
                                 className="text-6xl md:text-7xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-right"
                                 onClick={toggleMenu}
                             >
@@ -65,7 +93,7 @@ const Header = () => {
                         <li className="flex justify-between items-center">
                             <p className='text-3xl md:text-4xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-left font-medium'>/03</p>
                             <a 
-                                href="projects" 
+                                href="/projects" 
                                 className="text-6xl md:text-7xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-right"
                                 onClick={toggleMenu}
                             >
@@ -75,7 +103,7 @@ const Header = () => {
                         <li className="flex justify-between items-center">
                             <p className='text-3xl md:text-4xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-left font-medium'>/04</p>
                             <a 
-                                href="#contact" 
+                                href="/contact" 
                                 className="text-6xl md:text-7xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-right"
                                 onClick={toggleMenu}
                             >
@@ -89,7 +117,7 @@ const Header = () => {
             {/* Overlay */}
             {isMenuOpen && (
                 <div 
-                    className="fixed inset-0 bg-black opacity-50 z-30"
+                    className="menu-overlay fixed inset-0 bg-black opacity-50 z-30"
                     onClick={toggleMenu}
                 ></div>
             )}
