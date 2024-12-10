@@ -2,47 +2,61 @@ import React, { useState, useEffect } from 'react';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+
+    // Handle window resize
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+            
+            // Close menu on larger screens
+            if (window.innerWidth >= 768) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     // Prevent scrolling and interaction when menu is open
     useEffect(() => {
         if (isMenuOpen) {
             document.body.style.overflow = 'hidden';
-            document.body.style.pointerEvents = 'none';
-            
-            // Restore pointer events only on the menu and overlay
-            const menuAndOverlay = document.querySelectorAll('.side-menu, .menu-overlay, .ham');
-            menuAndOverlay.forEach(el => {
-                el.style.pointerEvents = 'auto';
-            });
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
         } else {
             document.body.style.overflow = 'auto';
-            document.body.style.pointerEvents = 'auto';
+            document.body.style.position = 'static';
+            document.body.style.width = 'auto';
         }
 
-        // Cleanup function to reset styles
         return () => {
             document.body.style.overflow = 'auto';
-            document.body.style.pointerEvents = 'auto';
+            document.body.style.position = 'static';
+            document.body.style.width = 'auto';
         };
     }, [isMenuOpen]);
 
     return (
-        <div>
-            <header className="fixed top-0 left-0 right-0 z-50 p-4 flex justify-between items-center">
+        <div className='p-10'>
+            <header className="fixed top-0 left-0 right-0 z-50 p-4 flex justify-between items-center brand-bg/90">
                 <a 
                     href="/" 
-                    className={`text-2xl brand-text header-title text-center md:text-left md:opacity-100
-                        ${isMenuOpen ? 'opacity-0' : ''} transition-opacity duration-200`}
+                    className={`text-xl sm:text-2xl brand-text header-title tracking-3 -skew-x-6 
+                        ${isMenuOpen ? 'opacity-0' : 'opacity-100'} 
+                        transition-opacity duration-200`}
                 >
-                    YOUSUF.SH
+                    Y.SH
                 </a>
                 
                 <svg 
-                    className={`ham hamRotate ham1 w-10 h-10 cursor-pointer ${isMenuOpen ? 'active' : ''}`} 
+                    className={`ham hamRotate ham1 w-8 h-8 sm:w-10 sm:h-10 cursor-pointer ${isMenuOpen ? 'active' : ''}`} 
                     viewBox="0 0 100 100" 
                     width="80" 
                     onClick={toggleMenu}
@@ -64,52 +78,44 @@ const Header = () => {
 
             {/* Side Menu */}
             <div 
-                className={`side-menu fixed top-0 right-0 h-full -tracking-5 w-full md:w-2/5 bg-white shadow-lg transform transition-transform duration-500 ease-out ${
+                className={`side-menu fixed top-0 right-0 h-full w-full -tracking-5 sm:w-4/5 md:w-3/5 lg:w-2/5 bg-white shadow-lg transform transition-transform duration-500 ease-out ${
                     isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-                } z-40 pt-20 md:pt-10`}
+                } z-40 flex items-center justify-center`}
             >
-                <nav className="px-6 pt-20 md:pt-10">
-                    <ul className="space-y-4 md:space-y-8 md:mt-10">
-                        <li className="flex justify-between items-center">
-                            <p className='text-3xl md:text-4xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-left font-medium'>/01</p>
-                            <a 
-                                href="/home" 
-                                className="text-6xl md:text-7xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-right"
-                                onClick={toggleMenu}
+                <nav className="w-full px-4 sm:px-6">
+                    <ul className="space-y-6 xs:space-y-8 sm:space-y-10 md:space-y-12">
+                        {[
+                            { number: '01', label: 'Home', href: '/' },
+                            { number: '02', label: 'About', href: '/about' },
+                            { number: '03', label: 'Projects', href: '/projects' },
+                            { number: '04', label: 'Contact', href: '/contact' }
+                        ].map((item, index) => (
+                            <li 
+                                key={item.number} 
+                                className="flex justify-between items-center group"
                             >
-                                Home
-                            </a>
-                        </li>
-                        <li className="flex justify-between items-center">
-                            <p className='text-3xl md:text-4xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-left font-medium'>/02</p>
-                            <a 
-                                href="/about" 
-                                className="text-6xl md:text-7xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-right"
-                                onClick={toggleMenu}
-                            >
-                                About
-                            </a>
-                        </li>
-                        <li className="flex justify-between items-center">
-                            <p className='text-3xl md:text-4xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-left font-medium'>/03</p>
-                            <a 
-                                href="/projects" 
-                                className="text-6xl md:text-7xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-right"
-                                onClick={toggleMenu}
-                            >
-                                Projects
-                            </a>
-                        </li>
-                        <li className="flex justify-between items-center">
-                            <p className='text-3xl md:text-4xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-left font-medium'>/04</p>
-                            <a 
-                                href="/contact" 
-                                className="text-6xl md:text-7xl hover:text-gray-600 transition-colors block py-2 md:py-4 text-right"
-                                onClick={toggleMenu}
-                            >
-                                Contact
-                            </a>
-                        </li>
+                                <p className='text-2xl xs:text-3xl sm:text-4xl md:text-4xl text-left font-medium 
+                                    opacity-50 
+                                    group-hover:brand-text 
+                                    group-hover:opacity-100 
+                                    transition-all duration-300'>
+                                    /{item.number}
+                                </p>
+                                <a 
+                                    href={item.href} 
+                                    className="text-5xl xs:text-6xl sm:text-8xl md:text-7xl lg:text-8xl 
+                                        transition-all duration-300 
+                                        hover:transform hover:-skew-x-6 
+                                        hover:text-gray-700 
+                                        hover:tracking-wide 
+                                        block py-2 xs:py-3 md:py-4
+                                        text-right"
+                                    onClick={toggleMenu}
+                                >
+                                    {item.label}
+                                </a>
+                            </li>
+                        ))}
                     </ul>
                 </nav>
             </div>

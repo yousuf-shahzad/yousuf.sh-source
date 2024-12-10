@@ -27,6 +27,10 @@ body {
   font-size: 2.5rem;
 }
 
+.loading-title {
+  font-family: 'Grandslang Roman', sans-serif;
+}
+
 .ham {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
