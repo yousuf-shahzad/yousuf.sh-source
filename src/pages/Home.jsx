@@ -46,6 +46,7 @@ const Home = () => {
             {loading && <Loader />}
             {!loading && (
                 <div>
+                    <div id='home-initial' className='h-screen'>
                         <motion.div
                             className="flex flex-col md:flex-row justify-between items-center px-8 lg:px-24 pt-32 lg:pt-40"
                             initial="initial"
@@ -76,7 +77,8 @@ const Home = () => {
                                 <Cube />
                             </div>
                         </motion.div>
-                        <div className="h-screen"></div>
+                        </div>
+                        <div className="h-screen bg-black"></div>
                 </div>
             )}
         </>

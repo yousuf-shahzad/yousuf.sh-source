@@ -1,48 +1,40 @@
-// File: src/components/Header.jsx
-
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 
 const Header = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen)
-    }
+        setIsMenuOpen(!isMenuOpen);
+    };
 
     // Handle window resize
     useEffect(() => {
         const handleResize = () => {
-            setWindowWidth(window.innerWidth)
+            setWindowWidth(window.innerWidth);
 
             // Close menu on larger screens
             if (window.innerWidth >= 768) {
-                setIsMenuOpen(false)
+                setIsMenuOpen(false);
             }
-        }
+        };
 
-        window.addEventListener('resize', handleResize)
-        return () => window.removeEventListener('resize', handleResize)
-    }, [])
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     // Prevent scrolling and interaction when menu is open
     useEffect(() => {
         if (isMenuOpen) {
-            document.body.style.overflow = 'hidden'
-            document.body.style.position = 'fixed'
-            document.body.style.width = '100%'
+            document.body.style.overflow = 'hidden';
         } else {
-            document.body.style.overflow = 'auto'
-            document.body.style.position = 'static'
-            document.body.style.width = 'auto'
+            document.body.style.overflow = 'auto';
         }
 
         return () => {
-            document.body.style.overflow = 'auto'
-            document.body.style.position = 'static'
-            document.body.style.width = 'auto'
-        }
-    }, [isMenuOpen])
+            document.body.style.overflow = 'auto';
+        };
+    }, [isMenuOpen]);
 
     return (
         <div className="p-10">
@@ -136,7 +128,7 @@ const Header = () => {
                 ></div>
             )}
         </div>
-    )
-}
+    );
+};
 
-export default Header
+export default Header;
