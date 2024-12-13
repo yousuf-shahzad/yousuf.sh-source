@@ -3,6 +3,8 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
+// Custom bezier curve can be edited at https://cubic-bezier.com/
+// Link follows as https://cubic-bezier.com/#[bezier_vals]
 const easing = [0.6, -0.05, 0.01, 0.99]
 
 const loaderVariants = {
@@ -11,15 +13,12 @@ const loaderVariants = {
     },
     out: {
         y: '-101%',
-    },
-    in: {
-        y: '101%',
-    },
+    }
 }
 
 const textVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 1.5 } },
+    visible: { opacity: 1, transition: { duration: 1.5 } }, // 
 }
 
 const Loader = () => {
@@ -29,7 +28,6 @@ const Loader = () => {
             variants={loaderVariants}
             initial="initial"
             animate="out"
-            exit="in"
             transition={{ duration: 0.7, delay: 1.4, ease: easing }}
         >
             <motion.div
