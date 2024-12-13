@@ -49,9 +49,8 @@ const Header = () => {
             <header className="fixed top-0 left-0 right-0 z-50 p-4 flex justify-between items-center brand-bg/90">
                 <a
                     href="/"
-                    className={`text-xl sm:text-2xl brand-text header-title tracking-3 -skew-x-6 
-        ${isMenuOpen ? 'sm:opacity-100 opacity-0' : 'opacity-100'} 
-        transition-opacity duration-200`}
+                    className={`text-xl sm:text-2xl brand-text header-title tracking-3 -skew-x-3 hover:-skew-x-12 transition ease-in-out duration-200
+        ${isMenuOpen ? 'sm:opacity-100 opacity-0' : 'opacity-100'}`}
                 >
                     Y.SH
                 </a>
