@@ -31,6 +31,31 @@ const initVariant = {
     },
 }
 
+const furtherPageVariants = {
+    initial: {
+        opacity: 0,
+        y: '30px',
+        // scale: 0.95,
+    },
+    in: {
+        opacity: 1,
+        // scale: 1,
+        y: 0,
+        transition: {
+            duration: 0.9,
+            ease: 'easeOut',
+        },
+    },
+    out: {
+        opacity: 0,
+        scale: 1.05,
+        transition: {
+            duration: 0.5,
+            ease: 'easeIn',
+        },
+    },
+}
+
 const Home = () => {
     const [loading, setLoading] = useState(true)
 
@@ -46,14 +71,13 @@ const Home = () => {
             {loading && <Loader />}
             {!loading && (
                 <div>
-                    <div id='home-initial' className='h-screen'>
+                    <div id="home-initial" className="h-screen">
                         <motion.div
                             className="flex flex-col md:flex-row justify-between items-center px-8 lg:px-24 pt-32 lg:pt-40"
                             initial="initial"
                             animate="in"
                             exit="out"
                             variants={initVariant}
-                            id="js-scroll"
                         >
                             <div className="text-left max-w-lg">
                                 <h1 className="text-7xl md:text-8xl lg:text-8xl leading-tight title">
@@ -77,8 +101,18 @@ const Home = () => {
                                 <Cube />
                             </div>
                         </motion.div>
-                        </div>
-                        <div className="h-screen bg-black"></div>
+                    </div>
+                    <div className="h-screen" id="home-middle">
+                        <motion.div
+                            initial="hidden"
+                            whileInView="in"
+                            animate="initial"
+                            viewport={{ once: true }}
+                            variants={furtherPageVariants}
+                        >
+                        <h1 className=''></h1>
+                        </motion.div>
+                    </div>
                 </div>
             )}
         </>
