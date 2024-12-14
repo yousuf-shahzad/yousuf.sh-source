@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [timeDisplay, setTimeDisplay] = useState('');
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -21,6 +22,40 @@ const Header = () => {
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    // Update time and UTC offset
+    useEffect(() => {
+        const updateTime = () => {
+            const now = new Date();
+            const londonFormatter = new Intl.DateTimeFormat('en-GB', {
+                timeZone: 'Europe/London',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false,
+            });
+
+            // Get London time
+            const londonTime = londonFormatter.formatToParts(now);
+            const hour = londonTime.find(part => part.type === 'hour').value;
+            const minute = londonTime.find(part => part.type === 'minute').value;
+
+            // Determine current London timezone (GMT or BST)
+            const londonFormatter2 = new Intl.DateTimeFormat('en-GB', {
+                timeZone: 'Europe/London',
+                timeZoneName: 'shortOffset'
+            });
+            const timeZoneName = londonFormatter2.formatToParts(now)
+                .find(part => part.type === 'timeZoneName').value;
+
+            setTimeDisplay(`${hour}:${minute} ${timeZoneName}`);
+        };
+
+        // Update immediately and then every second
+        updateTime();
+        const timer = setInterval(updateTime, 1000);
+
+        return () => clearInterval(timer);
     }, []);
 
     // Prevent scrolling and interaction when menu is open
@@ -46,24 +81,30 @@ const Header = () => {
                 >
                     Y.SH
                 </a>
-                <svg
-                    className={`ham hamRotate ham1 w-8 h-8 sm:w-10 sm:h-10 cursor-pointer ${
-                        isMenuOpen ? 'active' : ''
-                    }`}
-                    viewBox="0 0 100 100"
-                    width="80"
-                    onClick={toggleMenu}
-                >
-                    <path
-                        className="line top"
-                        d="m 30,33 h 40 c 0,0 9.044436,-0.654587 9.044436,-8.508902 0,-7.854315 -8.024349,-11.958003 -14.89975,-10.85914 -6.875401,1.098863 -13.637059,4.171617 -13.637059,16.368042 v 40"
-                    />
-                    <path className="line middle" d="m 30,50 h 40" />
-                    <path
-                        className="line bottom"
-                        d="m 30,67 h 40 c 12.796276,0 15.357889,-11.717785 15.357889,-26.851538 0,-15.133752 -4.786586,-27.274118 -16.667516,-27.274118 -11.88093,0 -18.499247,6.994427 -18.435284,17.125656 l 0.252538,40"
-                    />
-                </svg>
+                
+                <div className="flex items-center">
+                    <p className="hidden lg:block text-sm mr-4 text-brand-accent">
+                        London, EN • {timeDisplay}
+                    </p>
+                    <svg
+                        className={`ham hamRotate ham1 w-8 h-8 sm:w-10 sm:h-10 cursor-pointer ${
+                            isMenuOpen ? 'active' : ''
+                        }`}
+                        viewBox="0 0 100 100"
+                        width="80"
+                        onClick={toggleMenu}
+                    >
+                        <path
+                            className="line top"
+                            d="m 30,33 h 40 c 0,0 9.044436,-0.654587 9.044436,-8.508902 0,-7.854315 -8.024349,-11.958003 -14.89975,-10.85914 -6.875401,1.098863 -13.637059,4.171617 -13.637059,16.368042 v 40"
+                        />
+                        <path className="line middle" d="m 30,50 h 40" />
+                        <path
+                            className="line bottom"
+                            d="m 30,67 h 40 c 12.796276,0 15.357889,-11.717785 15.357889,-26.851538 0,-15.133752 -4.786586,-27.274118 -16.667516,-27.274118 -11.88093,0 -18.499247,6.994427 -18.435284,17.125656 l 0.252538,40"
+                        />
+                    </svg>
+                </div>
             </header>
 
             {/* Side Menu */}
