@@ -9,6 +9,14 @@ const Header = () => {
     const lenis = useLenis()
     const navigate = useNavigate()
 
+    const handleNavigation = (path) => {
+        if (lenis) {
+            lenis.scrollTo(0, { immediate: true })
+        }
+        toggleMenu()
+        navigate(path)
+    }
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen)
     }
@@ -118,7 +126,7 @@ const Header = () => {
                                     className="text-5xl xs:text-6xl sm:text-8xl md:text-7xl lg:text-8xl transition-all duration-300 hover:transform hover:-skew-x-6 hover:text-gray-700 hover:tracking-wide py-3 md:py-4 text-right"
                                     onClick={() => {
                                         toggleMenu()
-                                        navigate(item.href)
+                                        handleNavigation(item.href)
                                     }}
                                 >
                                     {item.label}

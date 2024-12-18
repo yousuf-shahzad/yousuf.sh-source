@@ -312,7 +312,9 @@ const Home = () => {
                                 }}
                             >
                                 <span>View More Projects</span>
-                                <span className="ml-2 group-hover:ml-10 duration-500 ease-out">→</span>
+                                <span className="ml-2 group-hover:ml-10 duration-500 ease-out">
+                                    →
+                                </span>
                             </button>
                         </div>
                     </motion.section>
@@ -340,28 +342,15 @@ const Home = () => {
                                 I'm always excited to collaborate on projects or
                                 discuss opportunities!
                             </p>
-                            <div className="flex flex-col md:flex-row gap-4 justify-center">
-                                <a
-                                    href="mailto:contact@yousuf.sh"
-                                    className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition"
-                                >
-                                    Email Me
-                                </a>
-                                <a
-                                    href="https://github.com/yousuf-shahzad"
-                                    target='_blank'
-                                    className="px-6 py-3 border-2 border-black text-black text-lg rounded hover:bg-gray-100 transition"
-                                >
-                                    GitHub Profile
-                                </a>
-                                <a
-                                    href="https://linkedin.com/in/yousuf-sh"
-                                    target='_blank'
-                                    className="px-6 py-3 border-2 border-black text-black text-lg rounded hover:bg-gray-100 transition"
-                                >
-                                    LinkedIn
-                                </a>
-                            </div>
+                            <button
+                                onClick={() => navigate('/contact')}
+                                className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition inline-flex items-center"
+                            >
+                                Let's Talk
+                                <span className="ml-2 group-hover:ml-6 duration-500 ease-out">
+                                    →
+                                </span>
+                            </button>
                         </motion.div>
                     </motion.section>
                 </div>
