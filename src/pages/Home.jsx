@@ -110,7 +110,7 @@ const Home = () => {
                             viewport={{ once: true }}
                             variants={furtherPageVariants}
                         >
-                        <h1 className=''></h1>
+                        
                         </motion.div>
                     </div>
                 </div>
@@ -119,4 +119,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Home;

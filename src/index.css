@@ -4,88 +4,208 @@
 
 /* Font Definitions with Enhanced Performance */
 @font-face {
-  font-family: 'PP Mori Book';
-  src: url('/src/assets/fonts/PP-Mori-Book.woff2') format('woff2'),
-       url('/src/assets/fonts/PP-Mori-Book.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap; /* Improves font loading performance */
+    font-family: 'PP Mori Book';
+    src: url('/src/assets/fonts/PP-Mori-Book.woff2') format('woff2'),
+        url('/src/assets/fonts/PP-Mori-Book.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* Improves font loading performance */
 }
 
 @font-face {
-  font-family: 'Grandslang Roman';
-  src: url('/src/assets/fonts/GrandSlang-Roman.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap; /* Improves font loading performance */
+    font-family: 'Grandslang Roman';
+    src: url('/src/assets/fonts/GrandSlang-Roman.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* Improves font loading performance */
 }
 
 /* Global Styles with Smooth Antialiasing */
 html {
-  scroll-behavior: smooth; /* Adds smooth scrolling */
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth; /* Adds smooth scrolling */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
 }
 
 body {
-  font-family: 'PP Mori Book', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: #F4F4F4;
-  line-height: 1.6;
-  color: #333;
-  font-smooth: always;
+    font-family: 'PP Mori Book', system-ui, -apple-system, BlinkMacSystemFont,
+        'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+        'Helvetica Neue', sans-serif;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+    color: #333;
+    font-smooth: always;
 }
 
 /* Typography Classes */
 .header-title {
-  font-family: 'Grandslang Roman', serif;
-  font-size: 2.5rem;
-  letter-spacing: -0.02em; /* Tightens letter spacing for display text */
+    font-family: 'Grandslang Roman', serif;
+    font-size: 2.5rem;
+    letter-spacing: -0.02em; /* Tightens letter spacing for display text */
 }
 
 .title {
-  font-family: 'Grandslang Roman', serif;
-  font-weight: normal;
+    font-family: 'Grandslang Roman', serif;
+    font-weight: normal;
 }
 
 /* Hamburger Menu Animation */
 .ham {
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform 400ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  user-select: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 400ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    user-select: none;
 }
 
 .hamRotate.active {
-  transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 .hamRotate180.active {
-  transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 .line {
-  fill: none;
-  transition: 
-    stroke-dasharray 400ms ease-in-out, 
-    stroke-dashoffset 400ms ease-in-out;
-  stroke: #000;
-  stroke-width: 5.5;
-  stroke-linecap: round;
+    fill: none;
+    transition: stroke-dasharray 400ms ease-in-out,
+        stroke-dashoffset 400ms ease-in-out;
+    stroke: #000;
+    stroke-width: 5.5;
+    stroke-linecap: round;
 }
 
 .ham1 .top {
-  stroke-dasharray: 40 139;
+    stroke-dasharray: 40 139;
 }
 
 .ham1 .bottom {
-  stroke-dasharray: 40 180;
+    stroke-dasharray: 40 180;
 }
 
 .ham1.active .top {
-  stroke-dashoffset: -98px;
+    stroke-dashoffset: -98px;
 }
 
 .ham1.active .bottom {
-  stroke-dashoffset: -138px;
+    stroke-dashoffset: -138px;
+}
+
+.nav-blur {
+    height: 300%;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    transform: translateZ(0) translateY(-30%);
+    transform-origin: left top;
+    transition: transform 1s cubic-bezier(0.55, 0, 0.1, 1),
+        height 1s cubic-bezier(0.55, 0, 0.1, 1);
+    width: 100%;
+    z-index: 5;
+}
+
+.nav-blur:after,
+.nav-blur:before,
+.nav-blur > div {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.nav-blur > div:first-of-type {
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
+    -webkit-mask: linear-gradient(
+        0deg,
+        hsla(0, 0%, 100%, 0) 0,
+        #fff 12.5%,
+        #fff 37.5%,
+        hsla(0, 0%, 100%, 0) 50%
+    );
+    mask: linear-gradient(
+        0deg,
+        hsla(0, 0%, 100%, 0) 0,
+        #fff 12.5%,
+        #fff 37.5%,
+        hsla(0, 0%, 100%, 0) 50%
+    );
+    z-index: 2;
+}
+
+.nav-blur > div:nth-of-type(2) {
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    -webkit-mask: linear-gradient(
+        0deg,
+        hsla(0, 0%, 100%, 0) 12.5%,
+        #fff 37.5%,
+        #fff 50%,
+        hsla(0, 0%, 100%, 0) 62.5%
+    );
+    mask: linear-gradient(
+        0deg,
+        hsla(0, 0%, 100%, 0) 12.5%,
+        #fff 37.5%,
+        #fff 50%,
+        hsla(0, 0%, 100%, 0) 62.5%
+    );
+    z-index: 3;
+}
+
+.nav-blur > div:nth-of-type(3) {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    -webkit-mask: linear-gradient(
+        0deg,
+        hsla(0, 0%, 100%, 0) 37.5%,
+        #fff 50%,
+        #fff 62.5%,
+        hsla(0, 0%, 100%, 0) 75%
+    );
+    mask: linear-gradient(
+        0deg,
+        hsla(0, 0%, 100%, 0) 37.5%,
+        #fff 50%,
+        #fff 62.5%,
+        hsla(0, 0%, 100%, 0) 75%
+    );
+    z-index: 4;
+}
+
+@media (orientation: portrait) {
+    .nav-blur > div:nth-of-type(3) {
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+    }
+}
+
+.nav-blur > div:nth-of-type(4) {
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    -webkit-mask: linear-gradient(
+        0deg,
+        hsla(0, 0%, 100%, 0) 50%,
+        #fff 62.5%,
+        #fff 75%,
+        hsla(0, 0%, 100%, 0) 87.5%
+    );
+    mask: linear-gradient(
+        0deg,
+        hsla(0, 0%, 100%, 0) 50%,
+        #fff 62.5%,
+        #fff 75%,
+        hsla(0, 0%, 100%, 0) 87.5%
+    );
+    z-index: 5;
+}
+
+@media (orientation: portrait) {
+    .nav-blur > div {
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }

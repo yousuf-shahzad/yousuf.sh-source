@@ -74,6 +74,13 @@ const Header = () => {
     return (
         <div className="p-10">
             <header className="fixed top-0 left-0 right-0 z-50 p-4 flex justify-between items-center brand-bg/90">
+            <div className="nav-blur">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div className="relative z-10 flex w-full justify-between items-center">
                 <a
                     href="/"
                     className={`text-xl sm:text-2xl brand-text header-title tracking-3 -skew-x-3 hover:-skew-x-12 transition ease-in-out duration-200
@@ -105,6 +112,7 @@ const Header = () => {
                         />
                     </svg>
                 </div>
+            </div>
             </header>
 
             {/* Side Menu */}
