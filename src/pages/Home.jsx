@@ -188,7 +188,7 @@ const Home = () => {
                     {/* About Section */}
                     <motion.section
                         id="section-1"
-                        className="min-h-screen py-20"
+                        className="min-h-screen py-20 "
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.3 }}
@@ -202,7 +202,7 @@ const Home = () => {
                         </motion.h2>
                         <div className="max-w-4xl mx-auto px-8">
                             <motion.div
-                                className="p-8 rounded-lg shadow-lg mb-8"
+                                className="p-8 rounded-lg shadow-lg mb-8 bg-white"
                                 variants={sectionVariants}
                             >
                                 <p className="text-xl mb-6">

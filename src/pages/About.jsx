@@ -1,14 +1,15 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
+// Animation variants for page transitions
 const pageVariants = {
   initial: {
     opacity: 0,
-    scale: 0.95,
+    y: '30px',
   },
   in: {
     opacity: 1,
-    scale: 1,
+    y: 0,
     transition: {
       duration: 0.9,
       ease: 'easeOut',
@@ -24,69 +25,148 @@ const pageVariants = {
   },
 };
 
+// Text reveal animation
+const textVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: 'easeOut',
+    },
+  },
+};
+
 const About = () => {
+  const { scrollY, scrollYProgress } = useScroll();
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Smooth spring animation for scroll progress
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // Parallax effects
+  const titleY = useTransform(scrollY, [0, 300], [0, -50]);
+  const subtitleY = useTransform(scrollY, [0, 300], [0, -25]);
+  const imageScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.2]);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  // Split text into paragraphs for stagger animation
+  const paragraphs = [
+    "I'm a passionate Computer Science student with an insatiable curiosity for technology and innovation. My journey in the digital realm began with a simple question: 'How does this all work?'",
+    "Currently pursuing my A-levels in Mathematics, Further Mathematics, and Computer Science, I find myself at the intersection of logical thinking and creative problem-solving. Every line of code I write is a step toward bringing innovative ideas to life.",
+    "When I'm not immersed in code, you'll find me exploring new technologies, contributing to open-source projects, or working on personal ventures that challenge my skills and creativity. I believe in the power of technology to create meaningful change, and I'm committed to being part of that transformation.",
+    "My technical journey has equipped me with proficiency in various technologies including Python, JavaScript, and React. But beyond the syntax and algorithms, I'm passionate about creating intuitive, user-centric solutions that make a difference."
+  ];
 
   return (
     <motion.div
-      className="about p-8"
+      className="relative min-h-screen overflow-hidden"
       initial="initial"
       animate="in"
       exit="out"
       variants={pageVariants}
     >
-      <h1 className='text-3xl mb-4'>About</h1>
-      <p>
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum." Section
-          1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-          "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-          qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
-          dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed
-          quia non numquam eius modi tempora incidunt ut labore et dolore magnam
-          aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-          exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex
-          ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
-          ea voluptate velit esse quam nihil molestiae consequatur, vel illum
-          qui dolorem eum fugiat quo voluptas nulla pariatur?" 1914 translation
-          by H. Rackham "But I must explain to you how all this mistaken idea of
-          denouncing pleasure and praising pain was born and I will give you a
-          complete account of the system, and expound the actual teachings of
-          the great explorer of the truth, the master-builder of human
-          happiness. No one rejects, dislikes, or avoids pleasure itself,
-          because it is pleasure, but because those who do not know how to
-          pursue pleasure rationally encounter consequences that are extremely
-          painful. Nor again is there anyone who loves or pursues or desires to
-          obtain pain of itself, because it is pain, but because occasionally
-          circumstances occur in which toil and pain can procure him some great
-          pleasure. To take a trivial example, which of us ever undertakes
-          laborious physical exercise, except to obtain some advantage from it?
-          But who has any right to find fault with a man who chooses to enjoy a
-          pleasure that has no annoying consequences, or one who avoids a pain
-          that produces no resultant pleasure?" Section 1.10.33 of "de Finibus
-          Bonorum et Malorum", written by Cicero in 45 BC "At vero eos et
-          accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-          voluptatum deleniti atque corrupti quos dolores et quas molestias
-          excepturi sint occaecati cupiditate non provident, similique sunt in
-          culpa qui officia deserunt mollitia animi, id est laborum et dolorum
-          fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam
-          libero tempore, cum soluta nobis est eligendi optio cumque nihil
-          impedit quo minus id quod maxime placeat facere possimus, omnis
-          voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-          quibusdam et aut officiis debitis aut rerum necessitatibus saepe
-          eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
-          Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-          voluptatibus maiores alias consequatur aut perferendis doloribus
-          asperiores repellat."
-        </p>
+      {/* Progress bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-black z-50 origin-left"
+        style={{ scaleX }}
+      />
+
+      {/* Hero Section */}
+      <div className="relative h-screen flex items-center justify-center overflow-hidden">
+        <motion.div 
+          className="absolute inset-0 z-0"
+          style={{ scale: imageScale }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent " />
+        </motion.div>
+
+        <div className="relative z-10 text-center px-8">
+          <motion.h1
+            style={{ y: titleY }}
+            className="text-8xl md:text-9xl font-bold mb-6 title"
+          >
+            ABOUT ME
+          </motion.h1>
+          <motion.p
+            style={{ y: subtitleY }}
+            className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto"
+          >
+            Exploring the intersection of creativity and technology
+          </motion.p>
+        </div>
+      </div>
+
+      {/* Content Sections */}
+      <div className="px-8 lg:px-24 py-20">
+        <div className="max-w-4xl mx-auto">
+          {paragraphs.map((paragraph, index) => (
+            <motion.div
+              key={index}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.8,
+                    delay: index * 0.2,
+                  },
+                },
+              }}
+              className="mb-12"
+            >
+              <p className="text-xl leading-relaxed text-gray-800">{paragraph}</p>
+            </motion.div>
+          ))}
+
+          {/* Skills Section */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={textVariants}
+            className="mt-20"
+          >
+            <h2 className="text-4xl mb-8">Technical Proficiencies</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="p-6 bg-gray-50 rounded-lg">
+                <h3 className="text-2xl mb-4">Languages</h3>
+                <div className="flex flex-wrap gap-3">
+                  {['Python', 'JavaScript', 'Java', 'HTML/CSS'].map((skill) => (
+                    <span key={skill} className="px-4 py-2 bg-white rounded-full shadow-sm">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="p-6 bg-gray-50 rounded-lg">
+                <h3 className="text-2xl mb-4">Technologies</h3>
+                <div className="flex flex-wrap gap-3">
+                  {['React', 'Node.js', 'Git', 'Firebase'].map((tech) => (
+                    <span key={tech} className="px-4 py-2 bg-white rounded-full shadow-sm">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+        
+        </div>
+      </div>
     </motion.div>
   );
 };
