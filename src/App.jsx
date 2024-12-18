@@ -12,13 +12,14 @@ function App() {
       })
 
     return (
+        
         <Router>
+
             <ReactLenis root>
             <div
                 className={`min-h-screen flex flex-col bg-brand-bg text-brand-text`}
             >
                 <Header />
-                <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css"></link>
                 <AnimatedCursor
                     innerSize={8}
                     outerSize={35}
