@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useLenis } from 'lenis/react'
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [timeDisplay, setTimeDisplay] = useState('');
+    const lenis = useLenis();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -60,27 +62,25 @@ const Header = () => {
 
     // Prevent scrolling and interaction when menu is open
     useEffect(() => {
-        if (isMenuOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
+        if (lenis) {
+            if (isMenuOpen) {
+                lenis.stop();
+            } else {
+                lenis.start();
+            }
         }
-
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, [isMenuOpen]);
+    }, [isMenuOpen, lenis]);
 
     return (
         <div className="p-10">
             <header className="fixed top-0 left-0 right-0 z-50 p-4 flex justify-between items-center brand-bg/90">
-            <div className="nav-blur">
+            <div className={`nav-blur ${isMenuOpen ? 'lg:w-[calc(100%-40vw)]' : 'lg:w-full'} w-full`}>
                 <div></div>
                 <div></div>
                 <div></div>
                 <div></div>
             </div>
-            <div className="relative z-10 flex w-full justify-between items-center">
+            <div className="relative z-40 flex w-full justify-between items-center">
                 <a
                     href="/"
                     className={`text-xl sm:text-2xl brand-text header-title tracking-3 -skew-x-3 hover:-skew-x-12 transition ease-in-out duration-200
@@ -118,7 +118,7 @@ const Header = () => {
             {/* Side Menu */}
             <div
                 className={`side-menu fixed top-0 right-0 h-full w-full -tracking-5 sm:w-4/5 md:w-3/5 lg:w-2/5 bg-white shadow-lg transform transition-transform duration-500 ease-out ${
-                    isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+                    isMenuOpen ? 'md:translate-x-0' : 'md:translate-x-full'
                 } z-40 flex items-center justify-center`}
             >
                 <nav className="w-full px-4 sm:px-6">
