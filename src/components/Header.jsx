@@ -100,7 +100,7 @@ const Header = () => {
 
             {/* Side Menu */}
             <div
-                className={`side-menu fixed top-0 right-0 h-full w-full sm:w-4/5 md:w-3/5 lg:w-2/5 bg-white shadow-lg transform transition-transform duration-500 ease-out ${isMenuOpen ? 'md:translate-x-0' : 'md:translate-x-full'} z-40 flex items-center justify-center`}
+                className={`side-menu fixed top-0 right-0 h-full w-full sm:w-4/5 md:w-3/5 lg:w-2/5 bg-white shadow-lg transform transition-transform duration-500 ease-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} z-40 flex items-center justify-center`}
             >
                 <nav className="w-full px-4 sm:px-6 -tracking-5">
                     <ul className="space-y-6 xs:space-y-8 sm:space-y-10 md:space-y-12">

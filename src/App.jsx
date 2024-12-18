@@ -35,7 +35,7 @@ function App() {
                         border: '3px solid white',
                         mixBlendMode: 'difference',
                     }}
-                    clickables={['button', 'a', 'input', '.ham', 'canvas']}
+                    clickables={['button', 'a', 'input', '.ham', 'canvas', '.dot']}
                 />
                 <main className="flex-grow container mx-auto px-4 py-8">
                     <AnimatedRoutes />

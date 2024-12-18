@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 
 // Custom bezier curve can be edited at https://cubic-bezier.com/
 // Link follows as https://cubic-bezier.com/#[bezier_vals]
-const easing = [0.6, -0.05, 0.01, 0.99]
+const easing = [0.99, 0.01, 0.01, 0.99]
 
 const loaderVariants = {
     initial: {
@@ -13,7 +13,9 @@ const loaderVariants = {
     },
     out: {
         y: '-101%',
-    }
+    },
+    
+    
 }
 
 const textVariants = {

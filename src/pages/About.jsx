@@ -1,9 +1,6 @@
-// File: src/pages/About.jsx
-
 import React from "react";
-import { motion } from "motion/react"
+import { motion } from "framer-motion";
 
-// Page transition variants
 const pageVariants = {
   initial: {
     opacity: 0,
@@ -27,19 +24,18 @@ const pageVariants = {
   },
 };
 
-
 const About = () => {
+
   return (
-    <>
-      <motion.div
-          className="about"
-          initial="initial"
-          animate="in"
-          exit="out"
-          variants={pageVariants}
-        >
-        <h1 className='text-3xl'>About</h1>
-        <p>
+    <motion.div
+      className="about p-8"
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+    >
+      <h1 className='text-3xl mb-4'>About</h1>
+      <p>
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -91,8 +87,7 @@ const About = () => {
           voluptatibus maiores alias consequatur aut perferendis doloribus
           asperiores repellat."
         </p>
-      </motion.div>
-    </>
+    </motion.div>
   );
 };
 
