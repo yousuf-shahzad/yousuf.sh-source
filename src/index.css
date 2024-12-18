@@ -102,7 +102,6 @@ body {
     transform-origin: left top;
     transition: transform 1s cubic-bezier(0.55, 0, 0.1, 1),
         height 1s cubic-bezier(0.55, 0, 0.1, 1);
-    width: 100%;
     z-index: 5;
 }
 
