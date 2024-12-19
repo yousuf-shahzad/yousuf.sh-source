@@ -127,7 +127,7 @@ const Home = () => {
         <>
             {loading && <Loader />}
             {!loading && (
-                <div className="relative overflow-x-hidden">
+                <div className="relative">
                     {/* Fixed progress bar */}
                     <motion.div
                         className="fixed top-0 left-0 right-0 h-1 bg-black z-50 origin-left"
@@ -210,7 +210,7 @@ const Home = () => {
                                     with a keen interest in web development and
                                     software engineering. I love breaking things
                                     down to understand how they work and
-                                    building projects that solve real-world
+                                    building projects that solve
                                     problems.
                                 </p>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
