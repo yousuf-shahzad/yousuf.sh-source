@@ -10,7 +10,7 @@ function App() {
     const lenisOptions = {
         smoothWheel: true,
         smoothTouch: true,
-        touchMultiplier: 1,
+        touchMultiplier: 2,
         infinite: false,
         syncTouch: true
     }
