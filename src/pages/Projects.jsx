@@ -1,3 +1,4 @@
+// File: src/pages/Projects.jsx
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';

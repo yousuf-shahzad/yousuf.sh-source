@@ -1,3 +1,4 @@
+// File: src/components/ConnectedDots.jsx
 import React, { useEffect } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import { throttle } from 'lodash';

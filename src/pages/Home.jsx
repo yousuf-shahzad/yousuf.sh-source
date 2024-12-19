@@ -1,3 +1,4 @@
+// File: src/pages/Home.jsx
 import { React, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'

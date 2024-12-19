@@ -1,3 +1,4 @@
+// File: src/components/Header.jsx
 import React, { useState, useEffect } from 'react'
 import { useLenis } from 'lenis/react'
 import { useNavigate } from 'react-router-dom'

@@ -1,3 +1,4 @@
+// File: src/pages/Contact.jsx
 import React, { useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 
