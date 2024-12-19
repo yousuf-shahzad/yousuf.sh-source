@@ -138,6 +138,7 @@ const Home = () => {
                     <ConnectedNavDots
                         currentSection={currentSection}
                         totalSections={4}
+                        setCurrentSection={setCurrentSection}
                     />
 
                     {/* Updated Hero Section */}
@@ -206,12 +207,12 @@ const Home = () => {
                                 variants={sectionVariants}
                             >
                                 <p className="text-xl mb-6">
-                                    I'm a passionate Computer Science student
-                                    with a keen interest in web development and
-                                    software engineering. I love breaking things
-                                    down to understand how they work and
-                                    building projects that solve
-                                    problems.
+                                    I'm a Computer Science student with a
+                                    passion for technology and software
+                                    development - I love breaking things down to
+                                    understand how they work, explore new
+                                    technologies and build projects that are
+                                    impactful.
                                 </p>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
                                     <div>
@@ -247,6 +248,19 @@ const Home = () => {
                                             </li>
                                         </ul>
                                     </div>
+                                </div>
+                                <div className="flex justify-center mt-8">
+                                    <button
+                                        className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transitionr"
+                                        onClick={() => {
+                                            navigate('/about')
+                                        }}
+                                    >
+                                        <span>Find out more about me</span>
+                                        <span className="ml-2 group-hover:ml-10 duration-500 ease-out">
+                                            →
+                                        </span>
+                                    </button>
                                 </div>
                             </motion.div>
                         </div>
