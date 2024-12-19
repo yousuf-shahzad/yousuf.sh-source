@@ -18,17 +18,17 @@ const Footer = () => {
     const socialLinks = [
         { 
             icon: Github, 
-            href: 'https://github.com/yourusername',
+            href: 'https://github.com/yousuf-shahzad',
             label: 'GitHub'
         },
         { 
             icon: Linkedin, 
-            href: 'https://linkedin.com/in/yourusername',
+            href: 'https://linkedin.com/in/yousuf-sh',
             label: 'LinkedIn'
         },
         { 
             icon: Mail, 
-            href: 'mailto:your.email@example.com',
+            href: 'mailto:contact@yousuf.sh',
             label: 'Email'
         }
     ];
@@ -45,7 +45,7 @@ const Footer = () => {
                             Computer Science Student & Aspiring Developer
                         </p>
                         <a 
-                            href="https://github.com/yourusername/portfolio"
+                            href="https://github.com/yousuf-shahzad/yousuf.sh-source"
                             className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors"
                             target="_blank"
                             rel="noopener noreferrer"
