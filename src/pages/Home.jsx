@@ -225,7 +225,7 @@ const Home = () => {
                                             Mathematics, Further Mathematics and
                                             Computer Science
                                             <br />
-                                            Expected Graduation: 2025
+                                            Expected Graduation: 2026
                                         </p>
                                     </div>
                                     <div>
