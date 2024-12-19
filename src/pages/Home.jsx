@@ -235,16 +235,16 @@ const Home = () => {
                                         <ul className="text-gray-600">
                                             <li>
                                                 Programming: Python, JavaScript,
-                                                Java
+                                                C#
                                             </li>
                                             <li>
                                                 Web: React, HTML, CSS, Node.js
                                             </li>
                                             <li>
-                                                Tools: Git, VS Code, Firebase
+                                                Tools: Git, VS Code, Vercel, Netlify, Docker
                                             </li>
                                             <li>
-                                                Currently Learning: [Technology]
+                                                Currently Learning: Sockets and WebRTC
                                             </li>
                                         </ul>
                                     </div>
