@@ -1,41 +1,20 @@
 const projectsData = [
-    {
-      title: "Project One",
-      description: "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-      links: {
-        demo: "https://example.com/project-one-demo", // Demo link
-        github: "https://github.com/username/project-one", // GitHub link
-        homepage: "https://example.com/project-one", // Homepage link
-      },
+  {
+    title: "Mafia Game Role Distributor",
+    description: "An elegant web-based tool for managing role assignments in the social deduction game Mafia. Built with JavaScript, this interactive solution uses advanced randomization algorithms to ensure fair and balanced gameplay while maintaining the suspense that makes Mafia engaging. Perfect for game hosts looking to streamline their setup process.",
+    links: {
+      demo: "https://astraeus.tokyo/games/mafia-role-picker/",
+      github: "",
     },
-    {
-      title: "Project Two",
-      description: "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-      links: {
-        demo: "https://example.com/project-two-demo",
-        github: "https://github.com/username/project-two",
-        homepage: "https://example.com/project-two",
-      },
+  },
+  {
+    title: "Statistical Distribution Generator",
+    description: "A sophisticated visualization tool that generates and displays bell curves (normal distributions) with stunning interactive plots. Originally developed in Python and expertly converted to JavaScript using Plotly, this application makes complex statistical concepts accessible and visually engaging. Features dynamic parameter adjustments and real-time graph updates.",
+    links: {
+      demo: "https://astraeus.tokyo/experiments/bell_curve_generator/index.html", 
+      github: "https://github.com/yousuf-shahzad/bell-curve-generator",
     },
-    {
-      title: "Project Three",
-      description: "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-      links: {
-        demo: "https://example.com/project-three-demo",
-        github: "https://github.com/username/project-three",
-        homepage: "https://example.com/project-three",
-      },
-    },
-    {
-      title: "Project Four",
-      description: "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-      links: {
-        demo: "https://example.com/project-four-demo",
-        github: "https://github.com/username/project-four",
-        homepage: "https://example.com/project-four",
-      },
-    },
-  ];
-  
-  export default projectsData;
-  
+  }
+ ];
+ 
+ export default projectsData;
