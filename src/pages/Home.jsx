@@ -196,7 +196,7 @@ const Home = () => {
                         variants={containerVariants}
                     >
                         <motion.h2
-                            className="text-4xl md:text-5xl text-center mb-16"
+                            className="text-4xl md:text-5xl text-center mb-16 -tracking-3"
                             variants={sectionVariants}
                         >
                             About Me
@@ -271,7 +271,7 @@ const Home = () => {
                         id="section-2"
                         className="min-h-screen py-20"
                     >
-                        <motion.h2 className="text-4xl md:text-5xl text-center mb-16">
+                        <motion.h2 className="text-4xl md:text-5xl text-center mb-16 -tracking-3">
                             Projects
                         </motion.h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-8 lg:px-24">
@@ -343,7 +343,7 @@ const Home = () => {
                         variants={containerVariants}
                     >
                         <motion.h2
-                            className="text-4xl md:text-5xl text-center mb-16"
+                            className="text-4xl md:text-5xl text-center mb-16 -tracking-3"
                             variants={sectionVariants}
                         >
                             Let's Connect
