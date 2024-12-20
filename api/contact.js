@@ -1,11 +1,11 @@
-// api/contact.js
 import nodemailer from 'nodemailer';
 
 const MAX_FIELD_LENGTHS = {
   name: 100,
   email: 254,
   subject: 200,
-  message: 5000
+  message: 5000,
+  url: 500
 };
 
 const sanitizeInput = (str = '', maxLength) => {
@@ -23,9 +23,15 @@ const isValidEmail = (email) => {
   return emailRegex.test(email);
 };
 
+const getClientIp = (req) => {
+  return req.headers['x-forwarded-for']?.split(',')[0].trim() || 
+         req.socket?.remoteAddress ||
+         'Unknown';
+};
+
 export default async function handler(req, res) {
   // CORS for your portfolio domain
-  res.setHeader('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN || 'https://yourdomain.com');
+  res.setHeader('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN || 'https://yousuf.sh');
   res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
   
   if (req.method === 'OPTIONS') {
@@ -44,17 +50,30 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: 'Invalid request' });
     }
 
+    const clientIp = getClientIp(req);
+    const formattedDate = new Date().toLocaleString('en-GB', {
+      timeZone: 'Europe/London',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      timeZoneName: 'short'
+    });
+
     // Sanitize inputs
     const sanitizedData = {
       name: sanitizeInput(body.name, MAX_FIELD_LENGTHS.name),
       email: sanitizeInput(body.email, MAX_FIELD_LENGTHS.email).toLowerCase(),
       subject: sanitizeInput(body.subject, MAX_FIELD_LENGTHS.subject),
-      message: sanitizeInput(body.message, MAX_FIELD_LENGTHS.message)
+      message: sanitizeInput(body.message, MAX_FIELD_LENGTHS.message),
+      url: sanitizeInput(body.url || req.headers.referer || '', MAX_FIELD_LENGTHS.url)
     };
 
     // Validate required fields
     for (const [field, value] of Object.entries(sanitizedData)) {
-      if (!value) {
+      if (!value && field !== 'url') { // URL is optional
         return res.status(400).json({ message: `${field} is required` });
       }
     }
@@ -63,7 +82,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: 'Invalid email format' });
     }
 
-    // Setup transport (recommend using Gmail or similar for portfolio)
+    // Setup transport
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: parseInt(process.env.SMTP_PORT || '587'),
@@ -79,21 +98,41 @@ export default async function handler(req, res) {
       to: process.env.CONTACT_EMAIL,
       replyTo: sanitizedData.email,
       subject: `Portfolio Contact: ${sanitizedData.subject}`,
-      text: `
+      text: `New Contact Form Submission
+
 Name: ${sanitizedData.name}
 Email: ${sanitizedData.email}
 Subject: ${sanitizedData.subject}
+Submission Time: ${formattedDate}
+IP Address: ${clientIp}
+Source URL: ${sanitizedData.url}
 
 Message:
 ${sanitizedData.message}
-      `,
+
+---
+This message was sent from the contact form on yousuf.sh`,
       html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2>New Portfolio Contact</h2>
-          <p><strong>Name:</strong> ${sanitizedData.name}</p>
-          <p><strong>Email:</strong> <a href="mailto:${sanitizedData.email}">${sanitizedData.email}</a></p>
-          <p><strong>Subject:</strong> ${sanitizedData.subject}</p>
-          <div style="white-space: pre-wrap;">${sanitizedData.message}</div>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px;">New Contact Form Submission</h2>
+          
+          <div style="background: #f9f9f9; padding: 20px; border-radius: 5px; margin: 20px 0;">
+            <p style="margin: 10px 0;"><strong>Name:</strong> ${sanitizedData.name}</p>
+            <p style="margin: 10px 0;"><strong>Email:</strong> <a href="mailto:${sanitizedData.email}">${sanitizedData.email}</a></p>
+            <p style="margin: 10px 0;"><strong>Subject:</strong> ${sanitizedData.subject}</p>
+            <p style="margin: 10px 0;"><strong>Submission Time:</strong> ${formattedDate}</p>
+            <p style="margin: 10px 0;"><strong>IP Address:</strong> ${clientIp}</p>
+            <p style="margin: 10px 0;"><strong>Source URL:</strong> ${sanitizedData.url}</p>
+          </div>
+
+          <div style="background: #fff; padding: 20px; border-left: 4px solid #333; margin: 20px 0;">
+            <h3 style="margin-top: 0; color: #333;">Message:</h3>
+            <p style="white-space: pre-wrap;">${sanitizedData.message}</p>
+          </div>
+
+          <div style="color: #666; font-size: 12px; margin-top: 30px; padding-top: 10px; border-top: 1px solid #eee;">
+            <p>This message was sent from the contact form on <a href="https://yousuf.sh">yousuf.sh</a></p>
+          </div>
         </div>
       `
     });
