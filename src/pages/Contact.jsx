@@ -89,55 +89,59 @@ const Contact = () => {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-
-        // Check submission rate limit
+        e.preventDefault();
         if (submitCount >= 5) {
-            setErrorMessage('Too many attempts. Please try again later.')
-            return
+            setErrorMessage('Too many attempts. Please try again later.');
+            return;
         }
-
-        if (!validateForm()) return
-
-        setIsSubmitting(true)
-        setSubmitCount(prev => prev + 1)
-
+        if (!validateForm()) return;
+        setIsSubmitting(true);
+        setSubmitCount(prev => prev + 1);
+        
         try {
-            const response = await fetch('/api/contact', {
+            // Use absolute URL in production, relative in development
+            const apiUrl = process.env.NODE_ENV === 'production' 
+                ? 'https://yousuf.sh/api/contact'
+                : '/api/contact';
+                
+            const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
-            })
-
-            const data = await response.json()
-
+                body: JSON.stringify({
+                    ...formData,
+                    url: window.location.href // Dynamically get current URL
+                }),
+            });
+    
+            // Handle non-JSON responses
             if (!response.ok) {
-                throw new Error(data.message || 'Something went wrong')
+                const errorText = await response.text();
+                throw new Error(errorText || `HTTP error! status: ${response.status}`);
             }
-
-            setSubmitStatus('success')
+            
+            const data = await response.json();
+            setSubmitStatus('success');
             setFormData({
                 name: '',
                 email: '',
                 subject: '',
                 message: '',
-                ip: '',
-                url: 'https://yousuf.sh/contact',
-            })
+                url: window.location.href,
+            });
         } catch (error) {
-            console.error('Error:', error)
-            setSubmitStatus('error')
-            setErrorMessage(error.message || 'Failed to send message. Please try again.')
+            console.error('Error:', error);
+            setSubmitStatus('error');
+            setErrorMessage(error.message || 'Failed to send message. Please try again.');
         } finally {
-            setIsSubmitting(false)
+            setIsSubmitting(false);
             setTimeout(() => {
-                setSubmitStatus(null)
-                setErrorMessage('')
-            }, 5000)
+                setSubmitStatus(null);
+                setErrorMessage('');
+            }, 5000);
         }
-    }
+    };
 
     return (
         <motion.div
