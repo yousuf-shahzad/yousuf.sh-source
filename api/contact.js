@@ -1,6 +1,6 @@
 // api/contact.js
-const nodemailer = require('nodemailer');
-const { RateLimiter } = require('limiter');
+import nodemailer from 'nodemailer';
+import { RateLimiter } from 'limiter';
 
 const limiter = new RateLimiter({
   tokensPerInterval: 5,
@@ -18,7 +18,7 @@ const sanitizeInput = (str = '') => {
     .replace(/\//g, '&#x2F;');
 };
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   console.log('Incoming request method:', req.method);
   console.log('Incoming request headers:', req.headers);
 
