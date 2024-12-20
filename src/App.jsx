@@ -13,7 +13,8 @@ function App() {
         smoothTouch: true,
         touchMultiplier: 2,
         infinite: false,
-        syncTouch: true
+        syncTouch: true,
+        normalizeScroll: true
     }
 
     return (
