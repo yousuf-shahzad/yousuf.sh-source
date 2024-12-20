@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import AnimatedRoutes from './components/AnimatedRoutes'
 import AnimatedCursor from 'react-animated-cursor'
 import { ReactLenis } from 'lenis/react'
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
     const lenisOptions = {
@@ -19,6 +20,7 @@ function App() {
 
     return (
         <Router>
+            <Analytics />
             <ReactLenis root options={lenisOptions}>
                 <div className="min-h-screen flex flex-col bg-brand-bg text-brand-text">
                     <Header />
