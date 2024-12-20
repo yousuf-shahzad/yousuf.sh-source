@@ -11,7 +11,7 @@
   ],
   "headers": [
     {
-      "source": "/src/api/(.*)",
+      "source": "src/api/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" },
         { "key": "Access-Control-Allow-Methods", "value": "POST" },
@@ -20,7 +20,7 @@
     }
   ],
   "functions": {
-    "/src/api/**/*.js": {
+    "src/api/**/*.js": {
       "runtime": "@vercel/node@5.0.0"
     }
   }
