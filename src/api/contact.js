@@ -2,8 +2,6 @@
 import nodemailer from 'nodemailer';
 import { RateLimiter } from 'limiter';
 
-// Create an in-memory rate limiter
-// Note: In a production environment, you might want to use a more persistent solution
 const limiter = new RateLimiter({
   tokensPerInterval: 5,
   interval: "15 minutes"
@@ -20,46 +18,59 @@ const sanitizeInput = (str = '') => {
     .replace(/\//g, '&#x2F;');
 };
 
-export const config = {
-  api: {
-    bodyParser: true,
-  },
-};
-
 export default async function handler(req, res) {
-  // Set CORS headers
+  console.log('Incoming request method:', req.method);
+  console.log('Incoming request headers:', req.headers);
+
+  // Handle CORS preflight
   res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', process.env.NODE_ENV === 'production' 
-    ? process.env.ALLOWED_ORIGIN 
-    : 'http://localhost:5173');
+  res.setHeader('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN);
   res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
   res.setHeader(
     'Access-Control-Allow-Headers',
     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
   );
 
-  // Handle preflight request
   if (req.method === 'OPTIONS') {
+    console.log('Handling OPTIONS request');
     res.status(200).end();
     return;
   }
 
-  // Only allow POST requests
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
+    console.log('Invalid method:', req.method);
+    return res.status(405).json({ 
+      message: `Method ${req.method} Not Allowed`,
+      success: false
+    });
   }
 
   try {
+    console.log('Processing POST request');
+    
     // Check rate limit
     const hasToken = await limiter.tryRemoveTokens(1);
     if (!hasToken) {
+      console.log('Rate limit exceeded');
       return res.status(429).json({ 
-        message: 'Too many requests, please try again later.'
+        message: 'Too many requests, please try again later.',
+        success: false
+      });
+    }
+
+    // Validate request body
+    if (!req.body) {
+      console.log('Missing request body');
+      return res.status(400).json({ 
+        message: 'Request body is required',
+        success: false
       });
     }
 
     // Get and sanitize form data
     const body = req.body;
+    console.log('Received body:', body);
+
     const sanitizedData = {
       name: sanitizeInput(body.name),
       email: sanitizeInput(body.email),
@@ -68,12 +79,25 @@ export default async function handler(req, res) {
       url: sanitizeInput(body.url)
     };
 
+    // Validate required fields
+    const requiredFields = ['name', 'email', 'subject', 'message'];
+    for (const field of requiredFields) {
+      if (!sanitizedData[field]) {
+        console.log(`Missing required field: ${field}`);
+        return res.status(400).json({ 
+          message: `${field} is required`,
+          success: false
+        });
+      }
+    }
+
     const clientIp = req.headers['x-forwarded-for'] || 
                     req.socket.remoteAddress;
 
+    console.log('Creating mail transporter');
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
+      port: parseInt(process.env.SMTP_PORT),
       secure: true,
       auth: {
         user: process.env.SMTP_USER,
@@ -118,7 +142,7 @@ This message was sent from the contact form on yousuf.sh
             <p style="margin: 10px 0;"><strong>Subject:</strong> ${sanitizedData.subject}</p>
             <p style="margin: 10px 0;"><strong>Submission Time:</strong> ${formattedDate}</p>
             <p style="margin: 10px 0;"><strong>IP Address:</strong> ${clientIp}</p>
-            <p style="margin: 10px 0;"><strong>Source URL:</strong> <a href="${sanitizedData.url}">${sanitizedData.url}</a></p>
+            <p style="margin: 10px 0;"><strong>Source URL:</strong> ${sanitizedData.url}</p>
           </div>
 
           <div style="background: #fff; padding: 20px; border-left: 4px solid #333; margin: 20px 0;">
@@ -133,13 +157,21 @@ This message was sent from the contact form on yousuf.sh
       `
     };
 
+    console.log('Sending email');
     await transporter.sendMail(mailOptions);
     
     console.log(`New contact form submission from ${sanitizedData.email} (${clientIp})`);
     
-    return res.status(200).json({ message: 'Email sent successfully' });
+    return res.status(200).json({ 
+      message: 'Email sent successfully',
+      success: true
+    });
   } catch (error) {
-    console.error('Error sending email:', error);
-    return res.status(500).json({ message: 'Error sending email' });
+    console.error('Error details:', error);
+    return res.status(500).json({ 
+      message: 'Error sending email',
+      error: error.message,
+      success: false
+    });
   }
 }
