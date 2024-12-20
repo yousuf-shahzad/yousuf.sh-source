@@ -171,7 +171,6 @@ const About = () => {
                                         'React',
                                         'Node.js',
                                         'Git',
-                                        'Firebase',
                                         'Flask',
                                         'Tailwind CSS',
                                         'Unity',
