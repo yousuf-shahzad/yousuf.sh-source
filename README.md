@@ -1,16 +1,6 @@
-# Personal Portfolio Website
+# yousuf.sh source code - portfolio/personal site
 
-A modern, animated portfolio website built with React, featuring smooth scrolling, interactive 3D elements, and responsive design.
-
-## Features
-
-- Smooth page transitions and scrolling animations using Framer Motion
-- Interactive 3D cube component built with Three.js
-- Responsive design with mobile-friendly navigation
-- Custom animated cursor for desktop devices
-- Real-time London timezone clock display
-- Contact form with animation feedback
-- Progress bar for scroll position
+A modern, animated portfolio website built with React, featuring smooth scrolling, interactive 3D elements, and responsive design, built for yousuf.sh by Yousuf Shahzad.
 
 ## Tech Stack
 
@@ -18,14 +8,8 @@ A modern, animated portfolio website built with React, featuring smooth scrollin
 - React Router DOM
 - Framer Motion
 - Three.js (@react-three/fiber & @react-three/drei)
-- Lenis for smooth scrolling
 - TailwindCSS for styling
-- React Animated Cursor
-
-## License
-
-MIT License - feel free to use this code for your own portfolio!
 
 ## Contact
 
-For questions or feedback, reach out at contact@yousuf.sh
+For questions or feedback, reach out at <contact@yousuf.sh>.
