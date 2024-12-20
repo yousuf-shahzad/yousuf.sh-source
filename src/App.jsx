@@ -20,7 +20,6 @@ function App() {
 
     return (
         <Router>
-            <Analytics />
             <ReactLenis root options={lenisOptions}>
                 <div className="min-h-screen flex flex-col bg-brand-bg text-brand-text">
                     <Header />
@@ -50,6 +49,7 @@ function App() {
                     <Footer />
                 </div>
             </ReactLenis>
+            <Analytics />
         </Router>
     )
 }
