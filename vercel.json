@@ -21,8 +21,7 @@
   ],
   "functions": {
     "api/**/*.js": {
-      "runtime": "nodejs12.x",
-      "includeFiles": "api/**/*.js"
+      "runtime": "@vercel/node@5.0.0"
     }
   }
 }
