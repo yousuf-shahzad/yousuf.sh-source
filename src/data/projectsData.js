@@ -14,7 +14,15 @@ const projectsData = [
       demo: "https://astraeus.tokyo/experiments/bell_curve_generator/index.html", 
       github: "https://github.com/yousuf-shahzad/bell-curve-generator",
     },
+  },
+  {
+    title: "Maths Club Website",
+    description: "A comprehensive web application for Upton Court Grammar School's Maths Society, designed to enhance mathematical engagement through challenges, leaderboards, and newsletter systems. Built using Flask and Jinja templating, the website provides an interactive platform for students to explore and excel in mathematics.",
+    links: {
+      demo: "http://149.102.130.118/",
+      github: "https://github.com/yousuf-shahzad/maths-soc-source",
+    },
   }
- ];
- 
- export default projectsData;
+];
+
+export default projectsData;
