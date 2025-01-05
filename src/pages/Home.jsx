@@ -276,7 +276,7 @@ const Home = () => {
                             Projects
                         </motion.h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-8 lg:px-24">
-                            {projectsData.map((project, index) => (
+                            {projectsData.slice(0, 4).map((project, index) => (
                                 <motion.div
                                     key={index}
                                     className="bg-white p-8 rounded-lg shadow-lg mb-8"
