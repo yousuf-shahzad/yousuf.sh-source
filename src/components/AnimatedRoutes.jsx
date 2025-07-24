@@ -6,7 +6,7 @@ import Projects from '../pages/Projects'
 import About from '../pages/About'
 import Contact from '../pages/Contact'
 import { AnimatePresence } from 'framer-motion'
-import MafiaGame from '../pages/games/MafiaGame'
+import NotFound from '../pages/NotFound'
 
 function AnimatedRoutes() {
     const location = useLocation()
@@ -18,11 +18,11 @@ function AnimatedRoutes() {
     return (
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
+                <Route path="*" element={<NotFound />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/projects/mafia" element={<MafiaGame />} />
             </Routes>
         </AnimatePresence>
     )
