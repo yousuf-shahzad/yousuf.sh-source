@@ -17,20 +17,10 @@ const projectsData = [
     },
   },
   {
-    title: "Mafia Game Role Picker",
-    description: "A digital tool for assigning roles in the party game Mafia, helping game moderators manage player roles efficiently.",
-    technologies: ["React", "Javascript"],
-    links: {
-      demo: "/projects/mafia",
-      github: ""
-    }
-  },
-  {
     title: "Statistical Distribution Generator",
     description: "A sophisticated visualization tool that generates and displays bell curves (normal distributions) with stunning interactive plots. Originally developed in Python and converted to JavaScript using Plotly, this application makes complex statistical concepts accessible and visually engaging. Features dynamic parameter adjustments and real-time graph updates.",
     technologies: ["JavaScript", "Plotly"],
     links: {
-      demo: "https://astraeus.tokyo/experiments/bell_curve_generator/index.html", 
       github: "https://github.com/yousuf-shahzad/bell-curve-generator",
     },
   },
@@ -39,7 +29,7 @@ const projectsData = [
     description: "A comprehensive web application for Upton Court Grammar School's Maths Society, designed to enhance mathematical engagement through challenges, leaderboards, and newsletter systems. Built using Flask and Jinja templating, the website provides an interactive platform for students to explore and excel in mathematics.",
     technologies: ["Python", "Flask", "Jinja", "PostgreSQL", "Sphinx"],
     links: {
-      demo: "http://149.102.130.118/",
+      demo: "https://ucgsmaths.com",
       github: "https://github.com/yousuf-shahzad/maths-soc-source",
     },
   }
