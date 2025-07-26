@@ -61,10 +61,10 @@ const About = () => {
 
     // Split text into paragraphs for stagger animation
     const paragraphs = [
-        "My journey into technology all began with a deep curiosity about how things work - this curiosity drove me to explore the world of programming, where I discovered the power of code to bring ideas to life and was captivated by the endless possibilities it offers.",
-        'Currently pursuing my A-levels in Mathematics, Further Mathematics, and Computer Science, I find myself at the intersection of logical thinking and creative problem-solving. Every project, line of code I work on and bug I solve is closer to actualising my dream of becoming a software engineer.',
-        "Beyond programming, you'll find me exploring new technologies, experimenting with video editing and graphic design, and playing sports. I love challenging myself and learning new things, and I'm constantly seeking new challenges to push my boundaries.",
-        "Though I am in the early stages of my journey, I am excited about my future and at my core am committed to building software that is meaningful, impactful and intuitive.",
+        "I have always been attracted to how things work. From a young age, I'd look at the websites I'd browse regularly, in awe, and wonder about their inner workings. My mother had bought me a book on the Scratch programming language, followed by another on HTML & CSS the year after, which I devoured. This culminated in my first project; a simple birthday countdown. Yet, this would spell the beginning for my programming journey.",
+        'As I am currently pursuing my A-levels in Mathematics, Further Mathematics, and Computer Science, I find they leave me to space to develop a strong foundation in both logical and abstract thinking. All my subjects challenge me in different ways, and I enjoy the balance they provide.',
+        "Beyond programming, I really enjoy working with various types of media. Working with video editing and graphic design allows me to unleash my creativity, and I have a love for sports that fosters my more competitive side. You'll also find me always experimenting with new and different technologies, as I still possess the persistent curiousity that defined my route into this field.",
+        "Although I am very early in my journey, I am excited by any and all future prospects and opportunities. There is always something new to learn, something different to try and something you can improve upon. I am committed to building solutions that are both engaging and impactful, and I look forward to the challenges that lie ahead.",
     ]
 
     return (
@@ -101,7 +101,7 @@ const About = () => {
                         style={{ y: subtitleY }}
                         className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto"
                     >
-                        Exploring the intersection of creativity and technology
+                        Who is Yousuf Shahzad?
                     </motion.p>
                 </div>
             </div>
@@ -152,7 +152,6 @@ const About = () => {
                                     {[
                                         'Python',
                                         'JavaScript',
-                                        'C#',
                                         'HTML/CSS',
                                     ].map((skill) => (
                                         <span
@@ -173,8 +172,9 @@ const About = () => {
                                         'Git',
                                         'Flask',
                                         'Tailwind CSS',
-                                        'Unity',
                                         'NumPy',
+                                        'SQL',
+                                        'PostgreSQL',
                                     ].map((tech) => (
                                         <span
                                             key={tech}
