@@ -1,5 +1,22 @@
 const projectsData = [
   {
+    title: "Maths Club Website",
+    description: "A comprehensive web application for Upton Court Grammar School's Maths Society, designed to enhance mathematical engagement through challenges, leaderboards, and newsletter systems. Built using Flask and Jinja templating, the website provides an interactive platform for students to explore and excel in mathematics.",
+    technologies: ["Python", "Flask", "Jinja", "PostgreSQL", "Sphinx"],
+    links: {
+      demo: "https://ucgsmaths.com",
+      github: "https://github.com/yousuf-shahzad/maths-soc-source",
+    },
+  },
+  {
+  title: "MC-Kube Distributed Minecraft Server Manager",
+  description: "A robust orchestration platform for managing Minecraft servers at scale, featuring automatic load balancing, seamless failover, and continuous health checks. The Rust-based backend coordinates with a custom Java plugin on each server, enabling dynamic player transfers, global broadcasts, remote command execution, and server enable/disable functionalities. The system includes a modern web dashboard for real-time monitoring and control, supporting high availability and resilience in multiplayer environments. mc-kube demonstrates advanced distributed systems engineering and cross-language communication.",
+  technologies: ["Rust", "Java", "HTML", "CSS", "Python"],
+  links: {
+    github: "https://github.com/sudhakara-ambati/mc-kube",
+  }
+  },
+  {
     title: "Game.co.uk Stock Checker",
     description: "A CLI tool for monitoring product availability on Game.co.uk, featuring dual checking methods via HTTP requests and browser automation. Built with Python using aiohttp and Playwright, the tool implements advanced rate limiting, error recovery, and real-time status updates. Includes a proof-of-concept checkout automation system demonstrating web automation capabilities. The project showcases reverse engineering skills through detailed analysis of the site's stock checking system and JSON-LD schema implementation.",
     technologies: ["Python", "aiohttp", "Playwright", "JSON-LD"],
@@ -24,15 +41,6 @@ const projectsData = [
       github: "https://github.com/yousuf-shahzad/bell-curve-generator",
     },
   },
-  {
-    title: "Maths Club Website",
-    description: "A comprehensive web application for Upton Court Grammar School's Maths Society, designed to enhance mathematical engagement through challenges, leaderboards, and newsletter systems. Built using Flask and Jinja templating, the website provides an interactive platform for students to explore and excel in mathematics.",
-    technologies: ["Python", "Flask", "Jinja", "PostgreSQL", "Sphinx"],
-    links: {
-      demo: "https://ucgsmaths.com",
-      github: "https://github.com/yousuf-shahzad/maths-soc-source",
-    },
-  }
 ];
 
 export default projectsData;

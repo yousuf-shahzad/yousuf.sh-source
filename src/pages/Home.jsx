@@ -226,6 +226,8 @@ const Home = () => {
                                             Mathematics, Further Mathematics and
                                             Computer Science
                                             <br />
+                                            A* <strong>Extended Project Qualification</strong> on AES-256
+                                            <br />
                                             Expected Graduation: 2026
                                         </p>
                                     </div>
@@ -236,7 +238,7 @@ const Home = () => {
                                         <ul className="text-gray-600">
                                             <li>
                                                 Programming: Python, JavaScript,
-                                                C#
+                                                SQL
                                             </li>
                                             <li>
                                                 Web: React, HTML, CSS, Node.js
@@ -245,7 +247,7 @@ const Home = () => {
                                                 Tools: Git, VS Code, Vercel, Netlify, Docker
                                             </li>
                                             <li>
-                                                Currently Learning: Sockets and WebRTC
+                                                Currently Learning: Rust
                                             </li>
                                         </ul>
                                     </div>
