@@ -117,7 +117,8 @@ const Header = () => {
                             { number: '01', label: 'Home', href: '/' },
                             { number: '02', label: 'About', href: '/about' },
                             { number: '03', label: 'Projects', href: '/projects' },
-                            { number: '04', label: 'Contact', href: '/contact' },
+                            { number: '04', label: 'Blog', href: '/blog' },
+                            { number: '05', label: 'Contact', href: '/contact' },
                         ].map(item => (
                             <li key={item.number} className="flex justify-between items-center group">
                                 <p className="text-xl xs:text-2xl sm:text-3xl font-medium opacity-50 group-hover:brand-text group-hover:opacity-100 transition-all duration-300">

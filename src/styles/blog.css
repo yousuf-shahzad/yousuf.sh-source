@@ -1,0 +1,56 @@
+/* Additional CSS for blog markdown content */
+
+/* Code highlighting improvements */
+.prose pre {
+    @apply bg-gray-900 border border-gray-800 rounded-lg overflow-x-auto;
+}
+
+.prose code {
+    @apply text-sm;
+}
+
+.prose pre code {
+    @apply bg-transparent p-0 text-gray-100;
+}
+
+/* Better spacing for lists in markdown */
+.prose ul li, .prose ol li {
+    @apply mb-2;
+}
+
+/* Improved blockquote styling */
+.prose blockquote {
+    @apply bg-gradient-to-r from-transparent via-gray-50/5 to-transparent;
+}
+
+/* Custom scrollbar for code blocks */
+.prose pre::-webkit-scrollbar {
+    height: 8px;
+}
+
+.prose pre::-webkit-scrollbar-track {
+    @apply bg-gray-800 rounded;
+}
+
+.prose pre::-webkit-scrollbar-thumb {
+    @apply bg-gray-600 rounded;
+}
+
+.prose pre::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+}
+
+/* Line clamp utilities for blog cards */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

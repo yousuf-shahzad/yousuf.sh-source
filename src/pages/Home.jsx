@@ -6,6 +6,7 @@ import Cube from '../components/Cube'
 import Loader from '../components/Loader'
 import ConnectedNavDots from '../components/ConnectedDots'
 import projectsData from '../data/projectsData' // External data file
+import { getRecentBlogs, formatDate } from '../utils/blogUtils'
 
 // Page transition variants
 const initVariant = {
@@ -65,6 +66,7 @@ const Home = () => {
     const [loading, setLoading] = useState(true)
     const { scrollYProgress } = useScroll()
     const [currentSection, setCurrentSection] = useState(0)
+    const [recentBlogs, setRecentBlogs] = useState([])
     const navigate = useNavigate()
 
     // Smooth spring animation for scroll progress
@@ -124,6 +126,17 @@ const Home = () => {
         return () => clearTimeout(timer)
     }, [])
 
+    // Fetch recent blog posts
+    useEffect(() => {
+        try {
+            const blogs = getRecentBlogs(3)
+            setRecentBlogs(blogs)
+        } catch (error) {
+            console.error('Error fetching recent blogs:', error)
+            setRecentBlogs([])
+        }
+    }, [])
+
     return (
         <>
             {loading && <Loader />}
@@ -138,7 +151,7 @@ const Home = () => {
                     {/* Fixed navigation dots */}
                     <ConnectedNavDots
                         currentSection={currentSection}
-                        totalSections={4}
+                        totalSections={5}
                         setCurrentSection={setCurrentSection}
                     />
 
@@ -166,7 +179,7 @@ const Home = () => {
                                     Currently studying Mathematics, Further
                                     Mathematics and Computer Science at A level.
                                 </p>
-                                <div className="flex gap-4 mt-6">
+                                <div className="flex flex-wrap gap-4 mt-6">
                                     <button className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition">
                                         <a href="#section-1">
                                             About Me{' '}
@@ -177,6 +190,15 @@ const Home = () => {
                                     </button>
                                     <button className="group px-6 py-3 border-2 border-black text-black text-lg rounded hover:bg-gray-100 transition">
                                         <a href="#section-2">View Projects</a>
+                                    </button>
+                                    <button 
+                                        className="group px-6 py-3 border-2 border-gray-500 text-gray-700 text-lg rounded hover:bg-gray-50 transition"
+                                        onClick={() => navigate('/blog')}
+                                    >
+                                        Read Blog
+                                        <span className="ml-2 group-hover:ml-4 duration-500 ease-out">
+                                            📝
+                                        </span>
                                     </button>
                                 </div>
                             </div>
@@ -336,9 +358,111 @@ const Home = () => {
                         </div>
                     </motion.section>
 
-                    {/* Contact Section */}
+                    {/* Blog Section */}
                     <motion.section
                         id="section-3"
+                        className="min-h-screen py-20"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={containerVariants}
+                    >
+                        <motion.h2
+                            className="text-4xl md:text-5xl text-center mb-16 -tracking-3"
+                            variants={sectionVariants}
+                        >
+                            Latest Thoughts
+                        </motion.h2>
+                        <motion.div
+                            className="max-w-6xl mx-auto px-8"
+                            variants={sectionVariants}
+                        >
+                            {recentBlogs.length > 0 ? (
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                                    {recentBlogs.map((blog, index) => (
+                                        <motion.article
+                                            key={blog.slug}
+                                            className="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                                            onClick={() => navigate(`/blog/${blog.slug}`)}
+                                            whileHover={{ y: -8 }}
+                                            variants={sectionVariants}
+                                        >
+                                            {/* Header Image */}
+                                            <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+                                                {blog.frontmatter.headerImage ? (
+                                                    <img
+                                                        src={blog.frontmatter.headerImage}
+                                                        alt={blog.frontmatter.title}
+                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                                    />
+                                                ) : (
+                                                    <div className="w-full h-full flex items-center justify-center">
+                                                        <div className="text-4xl opacity-20">📝</div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                            
+                                            {/* Content */}
+                                            <div className="p-6">
+                                                <div className="text-sm text-gray-500 mb-2">
+                                                    {formatDate(blog.frontmatter.date)}
+                                                </div>
+                                                <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-gray-700 transition-colors line-clamp-2">
+                                                    {blog.frontmatter.title}
+                                                </h3>
+                                                <p className="text-gray-600 mb-4 line-clamp-3">
+                                                    {blog.frontmatter.excerpt}
+                                                </p>
+                                                
+                                                {/* Tags */}
+                                                {blog.frontmatter.tags && (
+                                                    <div className="flex flex-wrap gap-2 mb-4">
+                                                        {blog.frontmatter.tags.slice(0, 2).map(tag => (
+                                                            <span
+                                                                key={tag}
+                                                                className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full"
+                                                            >
+                                                                {tag}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                                
+                                                <div className="flex items-center text-gray-500 font-medium group-hover:text-gray-700 transition-colors">
+                                                    Read More
+                                                    <svg className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </motion.article>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="text-center py-16">
+                                    <div className="text-6xl mb-4 opacity-20">📝</div>
+                                    <p className="text-xl text-gray-600">Coming soon...</p>
+                                </div>
+                            )}
+                            
+                            {/* View All Blog Button */}
+                            <div className="flex justify-center">
+                                <button
+                                    onClick={() => navigate('/blog')}
+                                    className="group px-6 py-3 border-2 border-black text-black text-lg rounded hover:bg-gray-100 transition inline-flex items-center"
+                                >
+                                    View All Posts
+                                    <span className="ml-2 group-hover:ml-6 duration-500 ease-out">
+                                        →
+                                    </span>
+                                </button>
+                            </div>
+                        </motion.div>
+                    </motion.section>
+
+                    {/* Contact Section */}
+                    <motion.section
+                        id="section-4"
                         className="min-h-screen py-20"
                         initial="hidden"
                         whileInView="visible"
