@@ -20,6 +20,7 @@ const initVariant = {
         transition: {
             duration: 0.9,
             ease: 'easeOut',
+            delay: 1.8,
         },
     },
     out: {
@@ -121,7 +122,7 @@ const Home = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false)
-        }, 2000)
+        }, 2200)
 
         return () => clearTimeout(timer)
     }, [])
@@ -140,9 +141,8 @@ const Home = () => {
     return (
         <>
             {loading && <Loader />}
-            {!loading && (
-                <div className="relative">
-                    {/* Fixed progress bar */}
+            <div className="relative">
+                {/* Fixed progress bar */}
                     <motion.div
                         className="fixed top-0 left-0 right-0 h-1 bg-black z-50 origin-left"
                         style={{ scaleX }}
@@ -495,7 +495,6 @@ const Home = () => {
                         </motion.div>
                     </motion.section>
                 </div>
-            )}
         </>
     )
 }

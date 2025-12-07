@@ -35,10 +35,12 @@ function App() {
                             innerStyle={{
                                 backgroundColor: 'white',
                                 mixBlendMode: 'difference',
+                                zIndex: 9999,
                             }}
                             outerStyle={{
                                 border: '3px solid white',
                                 mixBlendMode: 'difference',
+                                zIndex: 9999,
                             }}
                             clickables={['button', 'a', 'input', '.ham', 'canvas', '.dot']}
                         />

@@ -7,7 +7,8 @@ const SECTION_NAMES = {
   0: 'Home',
   1: 'About Me',
   2: 'Projects',
-  3: "Let's Connect"
+  3: "Blog",
+  4: 'Contact',
 };
 
 const ConnectedNavDots = ({ currentSection = 0, totalSections = 1, setCurrentSection }) => {

@@ -26,7 +26,7 @@ const textVariants = {
 const Loader = () => {
     return (
         <motion.div
-            className="fixed inset-0 bg-brand-text flex items-center justify-center z-50"
+            className="fixed inset-0 bg-brand-text flex items-center justify-center z-[999]"
             variants={loaderVariants}
             initial="initial"
             animate="out"
