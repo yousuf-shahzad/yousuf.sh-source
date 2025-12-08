@@ -1,6 +1,4 @@
-// File: src/components/Footer.jsx
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
 
 const Footer = () => {
@@ -36,16 +34,14 @@ const Footer = () => {
     return (
         <footer className="brand-bg mt-auto py-12 px-6">
             <div className="max-w-7xl mx-auto">
-                {/* Top Section */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 pb-8 border-b border-gray-200">
-                    {/* Brand Section */}
                     <div className="space-y-4">
-                        <h3 className="text-2xl font-bold tracking-wide title">Y.SH</h3>
+                        <h3 className="text-5xl font-bold tracking-wide title">Y.SH</h3>
                         <p className="text-sm text-gray-600">
                             Computer Science Student & Aspiring Developer
                         </p>
-                        <a 
-                            href="https://github.com/yousuf-shahzad/yousuf.sh-source"
+                        <Link
+                            to="https://github.com/yousuf-shahzad/yousuf.sh-source"
                             className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -53,33 +49,32 @@ const Footer = () => {
                             <Github className="w-4 h-4 mr-2" />
                             View Source Code
                             <ExternalLink className="w-3 h-3 ml-1" />
-                        </a>
+                        </Link>
                     </div>
 
-                    {/* Navigation Links */}
                     <div>
                         <h4 className="text-lg font-semibold mb-4 title">NAVIGATION</h4>
                         <nav className="grid grid-cols-2 gap-2">
                             {navigationLinks.map((link) => (
-                                <button
-                                    key={link.path}
+                                <Link
+                                    key={link.label}
+                                    to={link.path}
                                     onClick={() => navigate(link.path)}
                                     className="text-gray-600 hover:text-gray-900 transition-colors text-sm text-left"
                                 >
                                     {link.label}
-                                </button>
+                                </Link>
                             ))}
                         </nav>
                     </div>
 
-                    {/* Social Links */}
                     <div>
                         <h4 className="text-lg font-semibold mb-4 title">CONNECT</h4>
                         <div className="flex flex-col space-y-2">
                             {socialLinks.map((link) => (
-                                <a
+                                <Link
                                     key={link.label}
-                                    href={link.href}
+                                    to={link.href}
                                     className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm"
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -87,7 +82,7 @@ const Footer = () => {
                                     <link.icon className="w-4 h-4 mr-2" />
                                     {link.label}
                                     <ExternalLink className="w-3 h-3 ml-1" />
-                                </a>
+                                </Link>
                             ))}
                         </div>
                     </div>

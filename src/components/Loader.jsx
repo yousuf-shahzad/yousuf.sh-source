@@ -1,10 +1,5 @@
-// File: src/components/Loader.jsx
-
-import React from 'react'
 import { motion } from 'framer-motion'
 
-// Custom bezier curve can be edited at https://cubic-bezier.com/
-// Link follows as https://cubic-bezier.com/#[bezier_vals]
 const easing = [0.99, 0.01, 0.01, 0.99]
 
 const loaderVariants = {
@@ -14,8 +9,6 @@ const loaderVariants = {
     out: {
         y: '-101%',
     },
-    
-    
 }
 
 const textVariants = {

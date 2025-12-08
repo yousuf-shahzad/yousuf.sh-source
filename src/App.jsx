@@ -1,5 +1,3 @@
-// File: src/App.jsx
-import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -23,7 +21,6 @@ function App() {
             <ReactLenis root options={lenisOptions}>
                 <div className="min-h-screen flex flex-col bg-brand-bg text-brand-text">
                     <Header />
-                    {/* Only render AnimatedCursor for non-touch devices */}
                     {!('ontouchstart' in window) && (
                         <AnimatedCursor
                             innerSize={8}

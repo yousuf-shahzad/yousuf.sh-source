@@ -1,10 +1,7 @@
-// File: src/pages/Projects.jsx
-import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import projectsData from '../data/projectsData';
 
-// Animation variants
 const initVariant = {
   initial: {
     opacity: 0,
@@ -57,27 +54,15 @@ const projectVariants = {
 const Projects = () => {
   const { scrollYProgress } = useScroll();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
 
-  // Smooth spring animation for scroll progress
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
   });
 
-  useEffect(() => {
-    // Simulate loading state
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <div className="relative overflow-x-hidden">
-      {/* Fixed progress bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-black z-50 origin-left"
         style={{ scaleX }}
@@ -90,7 +75,6 @@ const Projects = () => {
         exit="out"
         variants={initVariant}
       >
-        {/* Hero Section */}
         <div className="px-8 lg:px-24 pt-32 lg:pt-40 mb-20">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -107,7 +91,6 @@ const Projects = () => {
           </motion.div>
         </div>
 
-        {/* Projects Grid */}
         <motion.div
           className="px-8 lg:px-24"
           variants={containerVariants}
@@ -125,7 +108,6 @@ const Projects = () => {
                 <h3 className="text-2xl font-bold mb-4">{project.title}</h3>
                 <p className="text-gray-600 mb-6">{project.description}</p>
                 
-                {/* Tech Stack Tags */}
                 {project.technologies && (
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.technologies.map((tech, i) => (
@@ -139,29 +121,28 @@ const Projects = () => {
                   </div>
                 )}
 
-                {/* Project Links */}
                 <div className="flex gap-4">
                   {project.links.demo && (
-                    <a
-                      href={project.links.demo}
+                    <Link
+                      to={project.links.demo}
                       className="text-black hover:text-gray-600 transition-colors flex items-center gap-2"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       <span>Demo</span>
                       <span className="group-hover:translate-x-1 transition-transform">→</span>
-                    </a>
+                    </Link>
                   )}
                   {project.links.github && (
-                    <a
-                      href={project.links.github}
+                    <Link
+                      to={project.links.github}
                       className="text-black hover:text-gray-600 transition-colors flex items-center gap-2"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       <span>GitHub</span>
                       <span className="group-hover:translate-x-1 transition-transform">→</span>
-                    </a>
+                    </Link>
                   )}
                 </div>
               </motion.div>
@@ -169,7 +150,6 @@ const Projects = () => {
           </div>
         </motion.div>
 
-        {/* Contact CTA Section */}
         <motion.div
           className="text-center py-20 px-8"
           initial={{ opacity: 0 }}
@@ -181,7 +161,7 @@ const Projects = () => {
             onClick={() => navigate('/contact')}
             className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition inline-flex items-center"
           >
-            Let's Talk
+            Let&apos;s Talk
             <span className="ml-2 group-hover:ml-6 duration-500 ease-out">→</span>
           </button>
         </motion.div>

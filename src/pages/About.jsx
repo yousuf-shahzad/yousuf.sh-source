@@ -1,8 +1,5 @@
-// File: src/pages/About.jsx
-import React, { useState, useEffect } from 'react'
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 
-// Animation variants for page transitions
 const pageVariants = {
     initial: {
         opacity: 0,
@@ -26,7 +23,6 @@ const pageVariants = {
     },
 }
 
-// Text reveal animation
 const textVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -41,25 +37,16 @@ const textVariants = {
 
 const About = () => {
     const { scrollY, scrollYProgress } = useScroll()
-    const [isLoaded, setIsLoaded] = useState(false)
-
-    // Smooth spring animation for scroll progress
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
         damping: 30,
         restDelta: 0.001,
     })
-
-    // Parallax effects
     const titleY = useTransform(scrollY, [0, 300], [0, -50])
     const subtitleY = useTransform(scrollY, [0, 300], [0, -25])
     const imageScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.2])
 
-    useEffect(() => {
-        setIsLoaded(true)
-    }, [])
-
-    // Split text into paragraphs for stagger animation
+    // paragraphs for stagger
     const paragraphs = [
         "I have always been attracted to how things work. From a young age, I'd look at the websites I'd browse regularly, in awe, and wonder about their inner workings. My mother had bought me a book on the Scratch programming language, followed by another on HTML & CSS the year after, which I devoured. This culminated in my first project; a simple birthday countdown. Yet, this would spell the beginning for my programming journey.",
         'As I am currently pursuing my A-levels in Mathematics, Further Mathematics, and Computer Science, I find they leave me to space to develop a strong foundation in both logical and abstract thinking. All my subjects challenge me in different ways, and I enjoy the balance they provide.',
@@ -69,20 +56,19 @@ const About = () => {
 
     return (
         <motion.div
-            className="relative min-h-screen overflow-hidden"
+            className="relative min-h-50vh overflow-hidden"
             initial="initial"
             animate="in"
             exit="out"
             variants={pageVariants}
         >
-            {/* Progress bar */}
+            {/*! scroll bar DO NOT TOUCH */}
             <motion.div
                 className="fixed top-0 left-0 right-0 h-1 bg-black z-50 origin-left"
                 style={{ scaleX }}
             />
 
-            {/* Hero Section */}
-            <div className="relative h-screen flex items-center justify-center overflow-hidden">
+            <div className="relative h-[75vh] flex items-center justify-center overflow-hidden">
                 <motion.div
                     className="absolute inset-0 z-0"
                     style={{ scale: imageScale }}
@@ -106,7 +92,6 @@ const About = () => {
                 </div>
             </div>
 
-            {/* Content Sections */}
             <div className="px-8 lg:px-24 py-20">
                 <div className="max-w-4xl mx-auto">
                     {paragraphs.map((paragraph, index) => (
@@ -134,7 +119,6 @@ const About = () => {
                         </motion.div>
                     ))}
 
-                    {/* Skills Section */}
                     <motion.div
                         initial="hidden"
                         whileInView="visible"

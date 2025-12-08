@@ -1,14 +1,12 @@
-// File: src/pages/Home.jsx
-import { React, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import { motion, useScroll, useSpring } from 'framer-motion'
 import Cube from '../components/Cube'
 import Loader from '../components/Loader'
 import ConnectedNavDots from '../components/ConnectedDots'
 import projectsData from '../data/projectsData' // External data file
 import { getRecentBlogs, formatDate } from '../utils/blogUtils'
 
-// Page transition variants
 const initVariant = {
     initial: {
         opacity: 0,
@@ -33,7 +31,6 @@ const initVariant = {
     },
 }
 
-// Section animation variants
 const sectionVariants = {
     hidden: {
         opacity: 0,
@@ -49,7 +46,6 @@ const sectionVariants = {
     },
 }
 
-// Container variants for staggered children
 const containerVariants = {
     hidden: {
         opacity: 0,
@@ -70,12 +66,12 @@ const Home = () => {
     const [recentBlogs, setRecentBlogs] = useState([])
     const navigate = useNavigate()
 
-    // Smooth spring animation for scroll progress
+    // spring animate for progress bar
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
         damping: 30,
         restDelta: 0.001,
-    })
+    }) // may be a bit janky prior to the loading screen disappearing
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -85,15 +81,12 @@ const Home = () => {
         return () => clearTimeout(timer)
     }, [])
 
-    // Progress bar for scroll position
-    // In your Home component, add this near the top where your other state is defined:
-
-    // Add this useEffect for section tracking
+    // hacky way to track current section using Intersection Observer
     useEffect(() => {
         const options = {
             root: null,
             rootMargin: '0px',
-            threshold: 0.5, // When 50% of the section is visible
+            threshold: 0.5, // 50% of the section is visible
         }
 
         const observer = new IntersectionObserver((entries) => {
@@ -106,13 +99,11 @@ const Home = () => {
             })
         }, options)
 
-        // Observe all sections
         document.querySelectorAll('[id^="section-"]').forEach((section) => {
             observer.observe(section)
         })
 
         return () => {
-            // Cleanup observer
             document.querySelectorAll('[id^="section-"]').forEach((section) => {
                 observer.unobserve(section)
             })
@@ -127,7 +118,6 @@ const Home = () => {
         return () => clearTimeout(timer)
     }, [])
 
-    // Fetch recent blog posts
     useEffect(() => {
         try {
             const blogs = getRecentBlogs(3)
@@ -142,20 +132,17 @@ const Home = () => {
         <>
             {loading && <Loader />}
             <div className="relative">
-                {/* Fixed progress bar */}
                     <motion.div
                         className="fixed top-0 left-0 right-0 h-1 bg-black z-50 origin-left"
                         style={{ scaleX }}
                     />
 
-                    {/* Fixed navigation dots */}
                     <ConnectedNavDots
                         currentSection={currentSection}
                         totalSections={5}
                         setCurrentSection={setCurrentSection}
                     />
 
-                    {/* Updated Hero Section */}
                     <div id="section-0" className="h-screen">
                         <motion.div
                             className="flex flex-col md:flex-row justify-between items-center px-8 lg:px-24 pt-32 lg:pt-40"
@@ -209,7 +196,6 @@ const Home = () => {
                         </motion.div>
                     </div>
 
-                    {/* About Section */}
                     <motion.section
                         id="section-1"
                         className="min-h-screen py-20 "
@@ -230,7 +216,7 @@ const Home = () => {
                                 variants={sectionVariants}
                             >
                                 <p className="text-xl mb-6">
-                                    I'm a Computer Science student with a
+                                    I&apos;m a Computer Science student with a
                                     passion for technology and software
                                     development - I love breaking things down to
                                     understand how they work, explore new
@@ -291,7 +277,6 @@ const Home = () => {
                         </div>
                     </motion.section>
 
-                    {/* Projects Section */}
                     <motion.section
                         id="section-2"
                         className="min-h-screen py-20"
@@ -314,38 +299,37 @@ const Home = () => {
 
                                     <div className="mt-4">
                                         {project.links.demo && (
-                                            <a
-                                                href={project.links.demo}
+                                            <Link
+                                                to={project.links.demo}
                                                 className="text-blue-500 hover:underline mr-4"
                                             >
                                                 View Demo
-                                            </a>
+                                            </Link>
                                         )}
                                         {project.links.github && (
-                                            <a
-                                                href={project.links.github}
+                                            <Link
+                                                to={project.links.github}
                                                 className="text-blue-500 hover:underline mr-4"
                                             >
                                                 GitHub Repo
-                                            </a>
+                                            </Link>
                                         )}
                                         {project.links.homepage && (
-                                            <a
-                                                href={project.links.homepage}
+                                            <Link
+                                                to={project.links.homepage}
                                                 className="text-blue-500 hover:underline"
                                             >
                                                 Project Homepage
-                                            </a>
+                                            </Link>
                                         )}
                                     </div>
                                 </motion.div>
                             ))}
                         </div>
 
-                        {/* Centered button */}
                         <div className="flex justify-center mt-8">
                             <button
-                                className="group transition px-6 py-3 border-2 border-black text-black text-lg rounded hover:bg-gray-100 transition flex items-center"
+                                className="group px-6 py-3 border-2 border-black text-black text-lg rounded hover:bg-gray-100 transition flex items-center"
                                 onClick={() => {
                                     navigate('/projects')
                                 }}
@@ -358,7 +342,6 @@ const Home = () => {
                         </div>
                     </motion.section>
 
-                    {/* Blog Section */}
                     <motion.section
                         id="section-3"
                         className="min-h-screen py-20"
@@ -379,7 +362,7 @@ const Home = () => {
                         >
                             {recentBlogs.length > 0 ? (
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                                    {recentBlogs.map((blog, index) => (
+                                    {recentBlogs.map((blog) => (
                                         <motion.article
                                             key={blog.slug}
                                             className="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
@@ -440,12 +423,10 @@ const Home = () => {
                                 </div>
                             ) : (
                                 <div className="text-center py-16">
-                                    <div className="text-6xl mb-4 opacity-20">📝</div>
                                     <p className="text-xl text-gray-600">Coming soon...</p>
                                 </div>
                             )}
                             
-                            {/* View All Blog Button */}
                             <div className="flex justify-center">
                                 <button
                                     onClick={() => navigate('/blog')}
@@ -460,7 +441,6 @@ const Home = () => {
                         </motion.div>
                     </motion.section>
 
-                    {/* Contact Section */}
                     <motion.section
                         id="section-4"
                         className="min-h-screen py-20"
@@ -473,21 +453,21 @@ const Home = () => {
                             className="text-4xl md:text-5xl text-center mb-16 -tracking-3"
                             variants={sectionVariants}
                         >
-                            Let's Connect
+                            Let&apos;s Connect
                         </motion.h2>
                         <motion.div
                             className="max-w-2xl mx-auto text-center px-8"
                             variants={sectionVariants}
                         >
                             <p className="text-xl text-gray-600 mb-8">
-                                I'm always excited to collaborate on projects or
+                                I&apos;m always excited to collaborate on projects or
                                 discuss opportunities!
                             </p>
                             <button
                                 onClick={() => navigate('/contact')}
                                 className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition inline-flex items-center"
                             >
-                                Let's Talk
+                                Let&apos;s Talk
                                 <span className="ml-2 group-hover:ml-6 duration-500 ease-out">
                                     →
                                 </span>

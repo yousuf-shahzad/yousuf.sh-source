@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { getAllBlogs, getAllTags, formatDate } from '../utils/blogUtils'
 
-// Animation variants
 const pageVariant = {
     initial: {
         opacity: 0,
@@ -62,7 +61,6 @@ const Blog = () => {
     const [searchTerm, setSearchTerm] = useState('')
     const navigate = useNavigate()
     
-    // Scroll progress for progress bar
     const { scrollYProgress } = useScroll()
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
@@ -82,14 +80,14 @@ const Blog = () => {
     useEffect(() => {
         let filtered = blogs
 
-        // Filter by tag
+        // tag filtering
         if (selectedTag !== 'all') {
             filtered = filtered.filter(blog => 
                 blog.frontmatter.tags && blog.frontmatter.tags.includes(selectedTag)
             )
         }
 
-        // Filter by search term
+        // search filtering
         if (searchTerm) {
             filtered = filtered.filter(blog =>
                 blog.frontmatter.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -107,7 +105,6 @@ const Blog = () => {
 
     return (
         <>
-            {/* Fixed progress bar */}
             <motion.div
                 className="fixed top-0 left-0 right-0 h-1 bg-black z-50 origin-left"
                 style={{ scaleX }}
@@ -121,7 +118,6 @@ const Blog = () => {
                 exit="out"
             >
                 <div className="max-w-7xl mx-auto">
-                    {/* Header */}
                     <motion.div 
                         className="text-center mb-16"
                         initial={{ opacity: 0, y: 30 }}
@@ -136,14 +132,12 @@ const Blog = () => {
                         </p>
                     </motion.div>
 
-                {/* Search and Filter Controls */}
                 <motion.div 
                     className="mb-12 flex flex-col md:flex-row gap-6 justify-between items-center"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                    {/* Search Input */}
                     <div className="relative w-full md:w-96">
                         <input
                             type="text"
@@ -162,7 +156,6 @@ const Blog = () => {
                         )}
                     </div>
 
-                    {/* Tag Filter */}
                     <div className="flex flex-wrap gap-2">
                         {tags.map(tag => (
                             <button
@@ -180,14 +173,13 @@ const Blog = () => {
                     </div>
                 </motion.div>
 
-                {/* Blog Posts Grid */}
                 <motion.div
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
                 >
-                    {filteredBlogs.map((blog, index) => (
+                    {filteredBlogs.map((blog) => (
                         <motion.article
                             key={blog.slug}
                             variants={cardVariants}
@@ -195,7 +187,6 @@ const Blog = () => {
                             onClick={() => handleBlogClick(blog.slug)}
                             className="group bg-brand-bg border border-brand-text/10 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:border-brand-accent/30 transition-all duration-300"
                         >
-                            {/* Header Image */}
                             <div className="aspect-video bg-gradient-to-br from-brand-accent/20 to-brand-secondary/20 relative overflow-hidden">
                                 {blog.frontmatter.headerImage ? (
                                     <img
@@ -211,25 +202,20 @@ const Blog = () => {
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
 
-                            {/* Content */}
                             <div className="p-6">
-                                {/* Meta Information */}
                                 <div className="flex items-center justify-between text-sm text-brand-text/60 mb-3">
                                     <span>{formatDate(blog.frontmatter.date)}</span>
                                     <span>{blog.frontmatter.readTime}</span>
                                 </div>
 
-                                {/* Title */}
                                 <h2 className="text-xl font-bold mb-3 text-brand-text group-hover:text-brand-accent transition-colors line-clamp-2">
                                     {blog.frontmatter.title}
                                 </h2>
 
-                                {/* Excerpt */}
                                 <p className="text-brand-text/80 mb-4 line-clamp-3">
                                     {blog.frontmatter.excerpt}
                                 </p>
 
-                                {/* Tags */}
                                 {blog.frontmatter.tags && (
                                     <div className="flex flex-wrap gap-2 mb-4">
                                         {blog.frontmatter.tags.slice(0, 3).map(tag => (
@@ -248,7 +234,6 @@ const Blog = () => {
                                     </div>
                                 )}
 
-                                {/* Read More */}
                                 <div className="flex items-center text-brand-accent font-medium group-hover:text-gray-500 transition-colors">
                                     Read More
                                     <svg 
@@ -265,7 +250,6 @@ const Blog = () => {
                     ))}
                 </motion.div>
 
-                {/* No Results */}
                 {filteredBlogs.length === 0 && (
                     <motion.div 
                         className="text-center py-16"
@@ -273,7 +257,6 @@ const Blog = () => {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="text-6xl mb-4 opacity-20">🔍</div>
                         <h3 className="text-2xl font-bold text-brand-text mb-2">No posts found</h3>
                         <p className="text-brand-text/60">
                             {searchTerm || selectedTag !== 'all' 

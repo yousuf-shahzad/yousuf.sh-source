@@ -8,7 +8,6 @@ import rehypeRaw from 'rehype-raw'
 import { getBlogBySlug, formatDate, getRecentBlogs } from '../utils/blogUtils'
 import 'highlight.js/styles/github-dark.css'
 
-// Animation variants
 const pageVariant = {
     initial: {
         opacity: 0,
@@ -40,7 +39,6 @@ const BlogPost = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     
-    // Scroll progress for progress bar
     const { scrollYProgress } = useScroll()
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
@@ -108,7 +106,7 @@ const BlogPost = () => {
                 <div className="text-center">
                     <div className="text-6xl mb-4 opacity-20">📄</div>
                     <h2 className="text-2xl font-bold text-brand-text mb-2">Blog post not found</h2>
-                    <p className="text-brand-text/60 mb-6">The blog post you're looking for doesn't exist.</p>
+                    <p className="text-brand-text/60 mb-6">The blog post you&apos;re looking for doesn&apos;t exist.</p>
                     <button
                         onClick={handleBackToBlog}
                         className="px-6 py-3 bg-brand-accent text-brand-bg rounded-lg hover:bg-brand-secondary transition-colors font-medium"
@@ -128,14 +126,12 @@ const BlogPost = () => {
             animate="in"
             exit="out"
         >
-            {/* Fixed progress bar */}
             <motion.div
                 className="fixed top-0 left-0 right-0 h-1 bg-black z-50 origin-left"
                 style={{ scaleX }}
             />
             
             <main className="flex-grow">
-            {/* Back Button */}
             <div className="px-6 md:px-12 lg:px-24 pt-8">
                 <button
                     onClick={handleBackToBlog}
@@ -148,7 +144,6 @@ const BlogPost = () => {
                 </button>
             </div>
 
-            {/* Header Image */}
             {blog.frontmatter.headerImage && (
                 <div className="aspect-[21/9] max-h-96 relative overflow-hidden">
                     <img
@@ -162,7 +157,6 @@ const BlogPost = () => {
 
             <div className="px-6 md:px-12 lg:px-24 py-12">
                 <div className="max-w-4xl mx-auto">
-                    {/* Article Header */}
                     <motion.header 
                         className="mb-12"
                         initial={{ opacity: 0, y: 30 }}
@@ -205,18 +199,17 @@ const BlogPost = () => {
                         )}
                     </motion.header>
 
-                    {/* Article Content */}
                     <motion.article 
                         className="prose prose-lg max-w-none prose-invert prose-headings:text-brand-text prose-p:text-brand-text/90 prose-a:text-brand-accent prose-a:no-underline hover:prose-a:underline prose-strong:text-brand-text prose-code:text-brand-accent prose-code:bg-brand-text/10 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-brand-text/5 prose-pre:border prose-pre:border-brand-text/10 prose-blockquote:border-l-brand-accent prose-blockquote:text-brand-text/80"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
+                        {/* standard markdown rendering with custom components */}
                         <ReactMarkdown
                             remarkPlugins={[remarkGfm]}
                             rehypePlugins={[rehypeHighlight, rehypeRaw]}
                             components={{
-                                // Custom components for better styling
                                 h1: ({ children }) => (
                                     <h1 className="text-3xl font-bold text-brand-text mt-12 mb-6 border-b border-brand-text/10 pb-4">
                                         {children}
@@ -268,7 +261,6 @@ const BlogPost = () => {
                         </ReactMarkdown>
                     </motion.article>
 
-                    {/* Related Posts */}
                     {recentBlogs.length > 0 && (
                         <motion.section 
                             className="mt-16 pt-12 border-t border-brand-text/10"

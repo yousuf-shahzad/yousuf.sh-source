@@ -2,14 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Font Definitions with Enhanced Performance */
 @font-face {
     font-family: 'PP Mori Book';
     src: url('/src/assets/fonts/PP-Mori-Book.woff2') format('woff2'),
         url('/src/assets/fonts/PP-Mori-Book.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-    font-display: swap; /* Improves font loading performance */
+    font-display: swap; 
 }
 
 @font-face {
@@ -17,12 +16,11 @@
     src: url('/src/assets/fonts/GrandSlang-Roman.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
-    font-display: swap; /* Improves font loading performance */
+    font-display: swap; 
 }
 
-/* Global Styles with Smooth Antialiasing */
 html {
-    scroll-behavior: smooth; /* Adds smooth scrolling */
+    scroll-behavior: smooth; 
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -39,11 +37,10 @@ body {
     font-smooth: always;
 }
 
-/* Typography Classes */
 .header-title {
     font-family: 'Grandslang Roman', serif;
     font-size: 2.5rem;
-    letter-spacing: -0.02em; /* Tightens letter spacing for display text */
+    letter-spacing: -0.02em;
 }
 
 .title {
@@ -51,29 +48,12 @@ body {
     font-weight: normal;
 }
 
-/* Blog-specific styles */
-.line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-/* Code highlighting overrides */
 .hljs {
     background: rgba(0, 0, 0, 0.05) !important;
     border-radius: 0.5rem;
     padding: 1rem !important;
 }
 
-/* Prose styling for markdown content */
 .prose code:not(.hljs) {
     background-color: rgba(0, 0, 0, 0.1);
     padding: 0.2rem 0.4rem;
@@ -81,7 +61,6 @@ body {
     font-size: 0.875em;
 }
 
-/* Hamburger Menu Animation */
 .ham {
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -239,24 +218,6 @@ body {
     }
 }
 
-/* Blog-specific styles */
-.line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-/* Enhanced prose styles for better markdown rendering */
 .prose pre {
     background-color: rgba(17, 24, 39, 0.8);
     border: 1px solid rgba(75, 85, 99, 0.3);
@@ -274,7 +235,6 @@ body {
     color: #f3f4f6;
 }
 
-/* Custom scrollbar for code blocks */
 .prose pre::-webkit-scrollbar {
     height: 8px;
 }
