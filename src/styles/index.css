@@ -2,14 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Font Definitions with Enhanced Performance */
 @font-face {
     font-family: 'PP Mori Book';
     src: url('/src/assets/fonts/PP-Mori-Book.woff2') format('woff2'),
         url('/src/assets/fonts/PP-Mori-Book.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-    font-display: swap; /* Improves font loading performance */
+    font-display: swap; 
 }
 
 @font-face {
@@ -17,12 +16,11 @@
     src: url('/src/assets/fonts/GrandSlang-Roman.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
-    font-display: swap; /* Improves font loading performance */
+    font-display: swap; 
 }
 
-/* Global Styles with Smooth Antialiasing */
 html {
-    scroll-behavior: smooth; /* Adds smooth scrolling */
+    scroll-behavior: smooth; 
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -39,11 +37,10 @@ body {
     font-smooth: always;
 }
 
-/* Typography Classes */
 .header-title {
     font-family: 'Grandslang Roman', serif;
     font-size: 2.5rem;
-    letter-spacing: -0.02em; /* Tightens letter spacing for display text */
+    letter-spacing: -0.02em;
 }
 
 .title {
@@ -51,7 +48,19 @@ body {
     font-weight: normal;
 }
 
-/* Hamburger Menu Animation */
+.hljs {
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-radius: 0.5rem;
+    padding: 1rem !important;
+}
+
+.prose code:not(.hljs) {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
 .ham {
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -207,4 +216,39 @@ body {
         -webkit-backdrop-filter: blur(6px);
         backdrop-filter: blur(6px);
     }
+}
+
+.prose pre {
+    background-color: rgba(17, 24, 39, 0.8);
+    border: 1px solid rgba(75, 85, 99, 0.3);
+    border-radius: 0.5rem;
+    overflow-x: auto;
+}
+
+.prose code {
+    font-size: 0.875rem;
+}
+
+.prose pre code {
+    background-color: transparent;
+    padding: 0;
+    color: #f3f4f6;
+}
+
+.prose pre::-webkit-scrollbar {
+    height: 8px;
+}
+
+.prose pre::-webkit-scrollbar-track {
+    background-color: rgba(31, 41, 55, 0.8);
+    border-radius: 0.25rem;
+}
+
+.prose pre::-webkit-scrollbar-thumb {
+    background-color: rgba(107, 114, 128, 0.8);
+    border-radius: 0.25rem;
+}
+
+.prose pre::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(156, 163, 175, 0.8);
 }

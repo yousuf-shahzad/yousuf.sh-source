@@ -1,9 +1,7 @@
-// File: src/pages/NotFound.jsx
-import { useState, useEffect } from 'react'
+import { useState, useEffect} from 'react'
 import { motion, useSpring, useTransform, useScroll } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 
-// Animation variants for page transitions
 const pageVariants = {
     initial: {
         opacity: 0,
@@ -27,7 +25,6 @@ const pageVariants = {
     },
 }
 
-// Text reveal animation
 const textVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -40,7 +37,6 @@ const textVariants = {
     },
 }
 
-// Button animation
 const buttonVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: {
@@ -64,7 +60,6 @@ const buttonVariants = {
     },
 }
 
-// Container variants for staggered children
 const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -81,14 +76,12 @@ const NotFound = () => {
     const { scrollY, scrollYProgress } = useScroll()
     const [isLoaded, setIsLoaded] = useState(false)
 
-    // Smooth spring animation for scroll progress
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
         damping: 30,
         restDelta: 0.001,
     })
 
-    // Parallax effects
     const titleY = useTransform(scrollY, [0, 300], [0, -50])
     const subtitleY = useTransform(scrollY, [0, 300], [0, -25])
 
@@ -112,14 +105,12 @@ const NotFound = () => {
             exit="out"
             variants={pageVariants}
         >
-            {/* Progress bar */}
             <motion.div
                 className="fixed top-0 left-0 right-0 h-1 bg-black z-50 origin-left"
                 style={{ scaleX }}
             />
 
-            {/* Hero Section */}
-            <div className="relative h-screen flex items-center justify-center overflow-hidden">
+            <div className="relative h-[75vh] flex items-center justify-center overflow-hidden">
                 <div className="relative z-10 text-center px-8 max-w-4xl mx-auto">
                     <motion.div
                         variants={containerVariants}
@@ -153,30 +144,17 @@ const NotFound = () => {
                         </motion.p>
 
                         {/* Action Buttons */}
-                        <motion.div
-                            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-                            variants={containerVariants}
-                        >
-                            <motion.button
-                                onClick={handleGoHome}
-                                className="px-8 py-4 bg-black text-white text-lg font-medium hover:bg-gray-800 transition-colors duration-300 -skew-x-3 hover:-skew-x-6 tracking-wide"
-                                variants={buttonVariants}
-                                whileHover="hover"
-                                whileTap="tap"
-                            >
-                                GO HOME
-                            </motion.button>
-
-                            <motion.button
-                                onClick={handleGoBack}
-                                className="px-8 py-4 border-2 border-black text-black text-lg font-medium hover:bg-black hover:text-white transition-all duration-300 -skew-x-3 hover:-skew-x-6 tracking-wide"
-                                variants={buttonVariants}
-                                whileHover="hover"
-                                whileTap="tap"
-                            >
-                                GO BACK
-                            </motion.button>
-                        </motion.div>
+                        <motion.div className="flex flex-wrap gap-4 mt-6 justify-center items-center">
+                                    <motion.button className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition" onClick={handleGoHome} variants={buttonVariants} whileHover="hover" whileTap="tap">
+                                            Home{' '}
+                                            <span className="ml-2 group-hover:ml-6 duration-500 ease-out">
+                                                →
+                                            </span>
+                                    </motion.button>
+                                    <motion.button className="group px-6 py-3 border-2 border-black text-black text-lg rounded hover:bg-gray-100 transition" onClick={handleGoBack} variants={buttonVariants} whileHover="hover" whileTap="tap">
+                                        Go Back
+                                    </motion.button>
+                                </motion.div>
 
                         {/* Decorative Elements */}
                         <motion.div

@@ -1,11 +1,9 @@
-// File: src/components/Header.jsx
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useLenis } from 'lenis/react'
 import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
     const [timeDisplay, setTimeDisplay] = useState('')
     const lenis = useLenis()
     const navigate = useNavigate()
@@ -22,18 +20,14 @@ const Header = () => {
         setIsMenuOpen(!isMenuOpen)
     }
 
-    // Handle window resize
     useEffect(() => {
         const handleResize = () => {
-            setWindowWidth(window.innerWidth)
             if (window.innerWidth >= 768) setIsMenuOpen(false)
         }
-
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
     }, [])
 
-    // Update time and timezone
     useEffect(() => {
         const updateTime = () => {
             const now = new Date()
@@ -63,7 +57,6 @@ const Header = () => {
         return () => clearInterval(timer)
     }, [])
 
-    // Prevent scrolling when menu is open
     useEffect(() => {
         if (lenis) isMenuOpen ? lenis.stop() : lenis.start()
     }, [isMenuOpen, lenis])
@@ -72,7 +65,7 @@ const Header = () => {
         <div className="p-6">
             <header className="fixed top-0 left-0 right-0 z-50 py-2 px-4 flex justify-between items-end brand-bg/90">
                 <div className={`nav-blur ${isMenuOpen ? 'lg:w-[calc(100%-40vw)]' : 'lg:w-full'} w-full`}>
-                    <div></div><div></div><div></div><div></div>
+                    <div></div><div></div><div></div><div></div> {/* blur effect */}
                 </div>
                 <div className="relative z-40 flex w-full justify-between items-end pb-2">
                     <button
@@ -107,7 +100,6 @@ const Header = () => {
                 </div>
             </header>
 
-            {/* Side Menu */}
             <div
                 className={`side-menu fixed top-0 right-0 h-full w-full sm:w-4/5 md:w-3/5 lg:w-2/5 bg-white shadow-lg transform transition-transform duration-500 ease-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} z-40 flex items-center justify-center`}
             >
@@ -117,7 +109,8 @@ const Header = () => {
                             { number: '01', label: 'Home', href: '/' },
                             { number: '02', label: 'About', href: '/about' },
                             { number: '03', label: 'Projects', href: '/projects' },
-                            { number: '04', label: 'Contact', href: '/contact' },
+                            { number: '04', label: 'Blog', href: '/blog' },
+                            { number: '05', label: 'Contact', href: '/contact' },
                         ].map(item => (
                             <li key={item.number} className="flex justify-between items-center group">
                                 <p className="text-xl xs:text-2xl sm:text-3xl font-medium opacity-50 group-hover:brand-text group-hover:opacity-100 transition-all duration-300">
@@ -138,7 +131,6 @@ const Header = () => {
                 </nav>
             </div>
 
-            {/* Overlay */}
             {isMenuOpen && (
                 <div className="menu-overlay fixed inset-0 bg-black opacity-50 z-30" onClick={toggleMenu}></div>
             )}
