@@ -27,8 +27,6 @@ const pageVariants = {
 
 const Contact = () => {
     const { scrollYProgress } = useScroll()
-
-    // Smooth spring animation for scroll progress
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
         damping: 30,
@@ -43,13 +41,10 @@ const Contact = () => {
             exit="out"
             variants={pageVariants}
         >
-            {/* Progress bar */}
             <motion.div
                 className="fixed top-0 left-0 right-0 h-1 bg-black z-50 origin-left"
                 style={{ scaleX }}
             />
-
-            {/* Hero Section */}
             <div className="px-8 lg:px-24 pt-32 lg:pt-40 mb-20">
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
@@ -67,11 +62,9 @@ const Contact = () => {
                 </motion.div>
             </div>
 
-            {/* Main Content */}
             <div className="px-8 lg:px-24 py-12">
                 <div className="max-w-6xl mx-auto">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-                        {/* Contact Information */}
                         <motion.div
                             initial={{ opacity: 0, x: -50 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -132,15 +125,16 @@ const Contact = () => {
                         >
                             <h2 className="text-2xl font-bold mb-4">Reach out directly</h2>
                             <p className="text-gray-600">
-                                Prefer email? Send a message and I&apos;ll reply as soon as I can.
+                                I prefer email, so if you send a message, I&apos;ll reply as soon as I can.
                             </p>
-                            <a
-                                href="mailto:contact@yousuf.sh"
-                                className="inline-flex items-center px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition"
-                            >
-                                Email me
-                                <span className="ml-2">→</span>
-                            </a>
+                            <button className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition">
+                                <a href="mailto:contact@yousuf.sh">
+                                            Email Me{' '}
+                                    <span className="ml-2 group-hover:ml-6 duration-500 ease-out">
+                                                →
+                                    </span>
+                                </a>
+                            </button>
                         </motion.div>
                     </div>
                 </div>
