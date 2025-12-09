@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { getAllBlogs, getAllTags, formatDate } from '../utils/blogUtils'
 
 const pageVariant = {
@@ -59,7 +59,6 @@ const Blog = () => {
     const [selectedTag, setSelectedTag] = useState('all')
     const [tags, setTags] = useState([])
     const [searchTerm, setSearchTerm] = useState('')
-    const navigate = useNavigate()
     
     const { scrollYProgress } = useScroll()
     const scaleX = useSpring(scrollYProgress, {
@@ -98,10 +97,6 @@ const Blog = () => {
 
         setFilteredBlogs(filtered)
     }, [selectedTag, searchTerm, blogs])
-
-    const handleBlogClick = (slug) => {
-        navigate(`/blog/${slug}`)
-    }
 
     return (
         <>
@@ -184,9 +179,9 @@ const Blog = () => {
                             key={blog.slug}
                             variants={cardVariants}
                             whileHover={{ y: -8 }}
-                            onClick={() => handleBlogClick(blog.slug)}
                             className="group bg-brand-bg border border-brand-text/10 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:border-brand-accent/30 transition-all duration-300"
                         >
+                            <Link to={`/blog/${blog.slug}`}>
                             <div className="aspect-video bg-gradient-to-br from-brand-accent/20 to-brand-secondary/20 relative overflow-hidden">
                                 {blog.frontmatter.headerImage ? (
                                     <img
@@ -201,6 +196,7 @@ const Blog = () => {
                                 )}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
+                        
 
                             <div className="p-6">
                                 <div className="flex items-center justify-between text-sm text-brand-text/60 mb-3">
@@ -246,6 +242,7 @@ const Blog = () => {
                                     </svg>
                                 </div>
                             </div>
+                            </Link>
                         </motion.article>
                     ))}
                 </motion.div>

@@ -1,6 +1,6 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import { motion, useSpring, useTransform, useScroll } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const pageVariants = {
     initial: {
@@ -72,7 +72,6 @@ const containerVariants = {
 }
 
 const NotFound = () => {
-    const navigate = useNavigate()
     const { scrollY, scrollYProgress } = useScroll()
     const [isLoaded, setIsLoaded] = useState(false)
 
@@ -88,10 +87,6 @@ const NotFound = () => {
     useEffect(() => {
         setIsLoaded(true)
     }, [])
-
-    const handleGoHome = () => {
-        navigate('/')
-    }
 
     const handleGoBack = () => {
         window.history.back()
@@ -115,9 +110,8 @@ const NotFound = () => {
                     <motion.div
                         variants={containerVariants}
                         initial="hidden"
-                        animate={isLoaded ? "visible" : "hidden"}
+                        animate={isLoaded ? 'visible' : 'hidden'}
                     >
-                        {/* 404 Number */}
                         <motion.h1
                             style={{ y: titleY }}
                             className="text-9xl md:text-[12rem] lg:text-[15rem] font-bold mb-6 title tracking-tight"
@@ -126,7 +120,6 @@ const NotFound = () => {
                             404
                         </motion.h1>
 
-                        {/* Page Not Found Text */}
                         <motion.h2
                             style={{ y: subtitleY }}
                             className="text-3xl md:text-5xl lg:text-6xl font-medium mb-8 -tracking-3"
@@ -135,28 +128,40 @@ const NotFound = () => {
                             PAGE NOT FOUND
                         </motion.h2>
 
-                        {/* Description */}
                         <motion.p
                             className="text-lg md:text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
                             variants={textVariants}
                         >
-                            The page you are looking for does not exist or has been moved. Please check the URL or return to the homepage.
+                            The page you are looking for does not exist or has
+                            been moved. Please check the URL or return to the
+                            homepage.
                         </motion.p>
 
-                        {/* Action Buttons */}
                         <motion.div className="flex flex-wrap gap-4 mt-6 justify-center items-center">
-                                    <motion.button className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition" onClick={handleGoHome} variants={buttonVariants} whileHover="hover" whileTap="tap">
-                                            Home{' '}
-                                            <span className="ml-2 group-hover:ml-6 duration-500 ease-out">
-                                                →
-                                            </span>
-                                    </motion.button>
-                                    <motion.button className="group px-6 py-3 border-2 border-black text-black text-lg rounded hover:bg-gray-100 transition" onClick={handleGoBack} variants={buttonVariants} whileHover="hover" whileTap="tap">
-                                        Go Back
-                                    </motion.button>
-                                </motion.div>
+                            <Link to="/">
+                                <motion.button
+                                    className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition"
+                                    variants={buttonVariants}
+                                    whileHover="hover"
+                                    whileTap="tap"
+                                >
+                                    Home{' '}
+                                    <span className="ml-2 group-hover:ml-6 duration-500 ease-out">
+                                        →
+                                    </span>
+                                </motion.button>
+                            </Link>
+                            <motion.button
+                                className="group px-6 py-3 border-2 border-black text-black text-lg rounded hover:bg-gray-100 transition"
+                                onClick={handleGoBack}
+                                variants={buttonVariants}
+                                whileHover="hover"
+                                whileTap="tap"
+                            >
+                                Go Back
+                            </motion.button>
+                        </motion.div>
 
-                        {/* Decorative Elements */}
                         <motion.div
                             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -z-10"
                             variants={textVariants}
@@ -165,7 +170,7 @@ const NotFound = () => {
                                 transition: {
                                     duration: 20,
                                     repeat: Infinity,
-                                    ease: "linear",
+                                    ease: 'linear',
                                 },
                             }}
                         >
@@ -180,7 +185,7 @@ const NotFound = () => {
                                 transition: {
                                     duration: 30,
                                     repeat: Infinity,
-                                    ease: "linear",
+                                    ease: 'linear',
                                 },
                             }}
                         >
@@ -189,8 +194,6 @@ const NotFound = () => {
                     </motion.div>
                 </div>
             </div>
-
-            {/* Additional Info Section */}
         </motion.div>
     )
 }

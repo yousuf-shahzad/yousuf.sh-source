@@ -1,8 +1,7 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
 
 const Footer = () => {
-    const navigate = useNavigate();
     
     const currentYear = new Date().getFullYear();
     
@@ -59,7 +58,6 @@ const Footer = () => {
                                 <Link
                                     key={link.label}
                                     to={link.path}
-                                    onClick={() => navigate(link.path)}
                                     className="text-gray-600 hover:text-gray-900 transition-colors text-sm text-left"
                                 >
                                     {link.label}

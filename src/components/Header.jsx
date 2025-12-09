@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useLenis } from 'lenis/react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -68,12 +68,13 @@ const Header = () => {
                     <div></div><div></div><div></div><div></div> {/* blur effect */}
                 </div>
                 <div className="relative z-40 flex w-full justify-between items-end pb-2">
+                    <Link to="/">
                     <button
                         className={`text-lg sm:text-xl brand-text header-title tracking-3 -skew-x-3 hover:-skew-x-12 transition ease-in-out duration-200 ${isMenuOpen ? 'sm:opacity-100 opacity-0' : 'opacity-100'}`}
-                        onClick={() => navigate('/')}
                     >
                         Y.SH
                     </button>
+                    </Link>
                     <div className="flex items-center">
                         <p className="hidden lg:block text-xs mr-3 text-brand-accent">
                             London, EN • {timeDisplay}

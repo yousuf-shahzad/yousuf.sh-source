@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useSpring } from 'framer-motion'
 
-// Animation variants
 const pageVariants = {
     initial: {
         opacity: 0,
@@ -127,14 +126,14 @@ const Contact = () => {
                             <p className="text-gray-600">
                                 I prefer email, so if you send a message, I&apos;ll reply as soon as I can.
                             </p>
-                            <button className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition">
-                                <a href="mailto:contact@yousuf.sh">
+                            <Link to="mailto:contact@yousuf.sh">
+                            <button className="group px-6 py-3 mt-5 bg-black text-white text-lg rounded hover:bg-gray-800 transition">
                                             Email Me{' '}
                                     <span className="ml-2 group-hover:ml-6 duration-500 ease-out">
                                                 →
                                     </span>
-                                </a>
                             </button>
+                            </Link>
                         </motion.div>
                     </div>
                 </div>

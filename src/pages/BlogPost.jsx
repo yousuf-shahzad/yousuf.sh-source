@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -33,7 +33,6 @@ const pageVariant = {
 
 const BlogPost = () => {
     const { slug } = useParams()
-    const navigate = useNavigate()
     const [blog, setBlog] = useState(null)
     const [recentBlogs, setRecentBlogs] = useState([])
     const [loading, setLoading] = useState(true)
@@ -69,14 +68,6 @@ const BlogPost = () => {
         fetchBlog()
     }, [slug])
 
-    const handleBackToBlog = () => {
-        navigate('/blog')
-    }
-
-    const handleBlogClick = (blogSlug) => {
-        navigate(`/blog/${blogSlug}`)
-    }
-
     if (loading) {
         return (
             <motion.div 
@@ -107,12 +98,13 @@ const BlogPost = () => {
                     <div className="text-6xl mb-4 opacity-20">📄</div>
                     <h2 className="text-2xl font-bold text-brand-text mb-2">Blog post not found</h2>
                     <p className="text-brand-text/60 mb-6">The blog post you&apos;re looking for doesn&apos;t exist.</p>
+                    <Link to="/blog">
                     <button
-                        onClick={handleBackToBlog}
                         className="px-6 py-3 bg-brand-accent text-brand-bg rounded-lg hover:bg-brand-secondary transition-colors font-medium"
                     >
                         Back to Blog
                     </button>
+                    </Link>
                 </div>
             </motion.div>
         )
@@ -133,15 +125,12 @@ const BlogPost = () => {
             
             <main className="flex-grow">
             <div className="px-6 md:px-12 lg:px-24 pt-8">
-                <button
-                    onClick={handleBackToBlog}
-                    className="flex items-center text-brand-accent hover:text-brand-secondary transition-colors font-medium mb-8"
-                >
+                <Link to="/blog" className="flex items-center text-brand-accent hover:text-brand-secondary transition-colors font-medium mb-8">
                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                     </svg>
                     Back to Blog
-                </button>
+                </Link>
             </div>
 
             {blog.frontmatter.headerImage && (
@@ -271,9 +260,10 @@ const BlogPost = () => {
                             <h2 className="text-2xl font-bold text-brand-text mb-8">More Articles</h2>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 {recentBlogs.map(relatedBlog => (
-                                    <div
+
+                                    <Link
+                                        to={`/blog/${relatedBlog.slug}`}
                                         key={relatedBlog.slug}
-                                        onClick={() => handleBlogClick(relatedBlog.slug)}
                                         className="group cursor-pointer bg-brand-bg border border-brand-text/10 rounded-lg overflow-hidden hover:border-brand-accent/30 transition-all duration-300 hover:shadow-lg"
                                     >
                                         <div className="aspect-video bg-gradient-to-br from-brand-accent/20 to-brand-secondary/20 relative overflow-hidden">
@@ -297,7 +287,7 @@ const BlogPost = () => {
                                                 {relatedBlog.frontmatter.title}
                                             </h3>
                                         </div>
-                                    </div>
+                                    </Link>
                                 ))}
                             </div>
                         </motion.section>

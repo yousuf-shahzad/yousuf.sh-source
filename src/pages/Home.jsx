@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import Cube from '../components/Cube'
 import Loader from '../components/Loader'
@@ -64,7 +64,6 @@ const Home = () => {
     const { scrollYProgress } = useScroll()
     const [currentSection, setCurrentSection] = useState(0)
     const [recentBlogs, setRecentBlogs] = useState([])
-    const navigate = useNavigate()
 
     // spring animate for progress bar
     const scaleX = useSpring(scrollYProgress, {
@@ -167,26 +166,26 @@ const Home = () => {
                                     Mathematics and Computer Science at A level.
                                 </p>
                                 <div className="flex flex-wrap gap-4 mt-6">
+                                    <a href="#section-1">
                                     <button className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition">
-                                        <a href="#section-1">
                                             About Me{' '}
                                             <span className="ml-2 group-hover:ml-6 duration-500 ease-out">
                                                 →
                                             </span>
-                                        </a>
                                     </button>
+                                    </a>
+                                    <a href="#section-2">
                                     <button className="group px-6 py-3 border-2 border-black text-black text-lg rounded hover:bg-gray-100 transition">
-                                        <a href="#section-2">View Projects</a>
+                                        View Projects
                                     </button>
+                                    </a>
+                                    <Link to="/blog">
                                     <button 
-                                        className="group px-6 py-3 border-2 border-gray-500 text-gray-700 text-lg rounded hover:bg-gray-50 transition"
-                                        onClick={() => navigate('/blog')}
+                                        className="group px-6 py-3 border-2 border-gray-500 text-gray-700 text-lg rounded hover:bg-gray-50 transition"   
                                     >
                                         Read Blog
-                                        <span className="ml-2 group-hover:ml-4 duration-500 ease-out">
-                                            📝
-                                        </span>
                                     </button>
+                                    </Link>
                                 </div>
                             </div>
 
@@ -261,17 +260,16 @@ const Home = () => {
                                     </div>
                                 </div>
                                 <div className="flex justify-center mt-8">
+                                    <Link to="/about">
                                     <button
                                         className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transitionr"
-                                        onClick={() => {
-                                            navigate('/about')
-                                        }}
                                     >
                                         <span>Find out more about me</span>
                                         <span className="ml-2 group-hover:ml-10 duration-500 ease-out">
                                             →
                                         </span>
                                     </button>
+                                    </Link>
                                 </div>
                             </motion.div>
                         </div>
@@ -328,17 +326,16 @@ const Home = () => {
                         </div>
 
                         <div className="flex justify-center mt-8">
+                            <Link to="/projects">
                             <button
                                 className="group px-6 py-3 border-2 border-black text-black text-lg rounded hover:bg-gray-100 transition flex items-center"
-                                onClick={() => {
-                                    navigate('/projects')
-                                }}
                             >
                                 <span>View More Projects</span>
                                 <span className="ml-2 group-hover:ml-10 duration-500 ease-out">
                                     →
                                 </span>
                             </button>
+                            </Link>
                         </div>
                     </motion.section>
 
@@ -366,11 +363,10 @@ const Home = () => {
                                         <motion.article
                                             key={blog.slug}
                                             className="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
-                                            onClick={() => navigate(`/blog/${blog.slug}`)}
                                             whileHover={{ y: -8 }}
                                             variants={sectionVariants}
                                         >
-                                            {/* Header Image */}
+                                            <Link to={`/blog/${blog.slug}`}>
                                             <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
                                                 {blog.frontmatter.headerImage ? (
                                                     <img
@@ -385,7 +381,6 @@ const Home = () => {
                                                 )}
                                             </div>
                                             
-                                            {/* Content */}
                                             <div className="p-6">
                                                 <div className="text-sm text-gray-500 mb-2">
                                                     {formatDate(blog.frontmatter.date)}
@@ -397,7 +392,6 @@ const Home = () => {
                                                     {blog.frontmatter.excerpt}
                                                 </p>
                                                 
-                                                {/* Tags */}
                                                 {blog.frontmatter.tags && (
                                                     <div className="flex flex-wrap gap-2 mb-4">
                                                         {blog.frontmatter.tags.slice(0, 2).map(tag => (
@@ -418,6 +412,7 @@ const Home = () => {
                                                     </svg>
                                                 </div>
                                             </div>
+                                            </Link>
                                         </motion.article>
                                     ))}
                                 </div>
@@ -428,8 +423,8 @@ const Home = () => {
                             )}
                             
                             <div className="flex justify-center">
+                                <Link to="/blog">
                                 <button
-                                    onClick={() => navigate('/blog')}
                                     className="group px-6 py-3 border-2 border-black text-black text-lg rounded hover:bg-gray-100 transition inline-flex items-center"
                                 >
                                     View All Posts
@@ -437,6 +432,7 @@ const Home = () => {
                                         →
                                     </span>
                                 </button>
+                                </Link>
                             </div>
                         </motion.div>
                     </motion.section>
@@ -463,8 +459,8 @@ const Home = () => {
                                 I&apos;m always excited to collaborate on projects or
                                 discuss opportunities!
                             </p>
+                            <Link to="/contact">
                             <button
-                                onClick={() => navigate('/contact')}
                                 className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition inline-flex items-center"
                             >
                                 Let&apos;s Talk
@@ -472,6 +468,7 @@ const Home = () => {
                                     →
                                 </span>
                             </button>
+                            </Link>
                         </motion.div>
                     </motion.section>
                 </div>

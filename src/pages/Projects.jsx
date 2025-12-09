@@ -1,5 +1,5 @@
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import projectsData from '../data/projectsData';
 
 const initVariant = {
@@ -53,7 +53,6 @@ const projectVariants = {
 
 const Projects = () => {
   const { scrollYProgress } = useScroll();
-  const navigate = useNavigate();
 
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -157,13 +156,14 @@ const Projects = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl mb-6">Interested in collaborating?</h2>
+          <Link to="/contact">
           <button
-            onClick={() => navigate('/contact')}
             className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition inline-flex items-center"
           >
             Let&apos;s Talk
             <span className="ml-2 group-hover:ml-6 duration-500 ease-out">→</span>
           </button>
+          </Link>
         </motion.div>
       </motion.div>
     </div>
