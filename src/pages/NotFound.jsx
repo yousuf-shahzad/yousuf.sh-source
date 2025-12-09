@@ -140,7 +140,7 @@ const NotFound = () => {
                         <motion.div className="flex flex-wrap gap-4 mt-6 justify-center items-center">
                             <Link to="/">
                                 <motion.button
-                                    className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition"
+                                    className="group px-6 py-3 bg-black border-2 border-black text-white text-lg rounded hover:bg-gray-800 transition"
                                     variants={buttonVariants}
                                     whileHover="hover"
                                     whileTap="tap"

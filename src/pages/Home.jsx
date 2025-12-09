@@ -167,9 +167,9 @@ const Home = () => {
                                 </p>
                                 <div className="flex flex-wrap gap-4 mt-6">
                                     <a href="#section-1">
-                                    <button className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition">
+                                    <button className="group px-6 py-3 bg-black border-2 border-black text-white text-lg rounded hover:bg-gray-800 transition">
                                             About Me{' '}
-                                            <span className="ml-2 group-hover:ml-6 duration-500 ease-out">
+                                            <span className="group-hover:ml-6 duration-500 ease-out">
                                                 →
                                             </span>
                                     </button>
@@ -262,7 +262,7 @@ const Home = () => {
                                 <div className="flex justify-center mt-8">
                                     <Link to="/about">
                                     <button
-                                        className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transitionr"
+                                        className="group px-6 py-3 border-2 border-black bg-black text-white text-lg rounded hover:bg-gray-800 transitionr"
                                     >
                                         <span>Find out more about me</span>
                                         <span className="ml-2 group-hover:ml-10 duration-500 ease-out">
@@ -291,7 +291,7 @@ const Home = () => {
                                     <h3 className="text-2xl mb-4">
                                         {project.title}
                                     </h3>
-                                    <p className="text-gray-600">
+                                    <p className="text-gray-600 project-description">
                                         {project.description}
                                     </p>
 
@@ -461,7 +461,7 @@ const Home = () => {
                             </p>
                             <Link to="/contact">
                             <button
-                                className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition inline-flex items-center"
+                                className="group px-6 py-3 border-2 border-black bg-black text-white text-lg rounded hover:bg-gray-800 transition inline-flex items-center"
                             >
                                 Let&apos;s Talk
                                 <span className="ml-2 group-hover:ml-6 duration-500 ease-out">

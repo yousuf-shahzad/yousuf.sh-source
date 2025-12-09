@@ -158,7 +158,7 @@ const Projects = () => {
           <h2 className="text-4xl mb-6">Interested in collaborating?</h2>
           <Link to="/contact">
           <button
-            className="group px-6 py-3 bg-black text-white text-lg rounded hover:bg-gray-800 transition inline-flex items-center"
+            className="group px-6 py-3 bg-black border-2 border-black text-white text-lg rounded hover:bg-gray-800 transition inline-flex items-center"
           >
             Let&apos;s Talk
             <span className="ml-2 group-hover:ml-6 duration-500 ease-out">→</span>

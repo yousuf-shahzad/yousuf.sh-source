@@ -127,7 +127,7 @@ const Contact = () => {
                                 I prefer email, so if you send a message, I&apos;ll reply as soon as I can.
                             </p>
                             <Link to="mailto:contact@yousuf.sh">
-                            <button className="group px-6 py-3 mt-5 bg-black text-white text-lg rounded hover:bg-gray-800 transition">
+                            <button className="group px-6 py-3 mt-5 border-2 border-black bg-black text-white text-lg rounded hover:bg-gray-800 transition">
                                             Email Me{' '}
                                     <span className="ml-2 group-hover:ml-6 duration-500 ease-out">
                                                 →
