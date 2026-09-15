@@ -4,43 +4,44 @@
   "type": "module",
   "version": "0.0.0",
   "scripts": {
+    "content:build": "node scripts/content.mjs",
+    "predev": "npm run content:build",
     "dev": "vite",
-    "build": "vite build",
+    "prebuild": "npm run content:build",
+    "build": "vite build && node scripts/prerender.mjs",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "test": "node --test tests/*.test.mjs",
+    "test:build": "node --test tests/build/*.test.mjs",
+    "preview": "vite preview",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "showcase": "node scripts/showcase.mjs"
   },
   "dependencies": {
-    "@react-three/fiber": "^8.17.10",
     "@vercel/analytics": "^1.4.1",
-    "buffer": "^6.0.3",
-    "framer-motion": "^11.13.5",
-    "gray-matter": "^4.0.3",
-    "lenis": "^1.1.18",
-    "lodash": "^4.17.21",
-    "lucide-react": "^0.468.0",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
-    "react-animated-cursor": "^2.11.2",
     "react-dom": "^18.3.1",
-    "react-markdown": "^10.1.0",
-    "react-router-dom": "^7.0.1",
-    "rehype-highlight": "^7.0.2",
-    "remark-gfm": "^4.0.1",
-    "three": "^0.171.0"
+    "react-router-dom": "^7.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.3",
-    "autoprefixer": "^10.4.20",
+    "@vitejs/plugin-react": "^5.2.0",
+    "esbuild": "^0.28.2",
     "eslint": "^9.13.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.11.0",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.15",
-    "vite": "^5.4.10"
+    "gray-matter": "^4.0.3",
+    "prettier": "^3.9.6",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "vite": "^7.3.6"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

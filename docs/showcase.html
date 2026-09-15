@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Y.SH — Design showcase</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #e7e7e2;
+        color: #23251f;
+        font:
+          15px/1.6 system-ui,
+          sans-serif;
+      }
+      header,
+      main,
+      footer {
+        max-width: 1440px;
+        margin: auto;
+        padding: 32px;
+      }
+      header {
+        padding-top: 48px;
+      }
+      h1 {
+        font-size: clamp(32px, 5vw, 64px);
+        letter-spacing: -0.05em;
+        line-height: 1.08;
+        margin: 12px 0 18px;
+      }
+      p {
+        max-width: 720px;
+        color: #5c6157;
+      }
+      small {
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-size: 11px;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 24px;
+      }
+      button,
+      a.action {
+        font: inherit;
+        border: 1px solid #a9ada1;
+        background: transparent;
+        border-radius: 30px;
+        padding: 10px 18px;
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      button[aria-pressed='true'],
+      a.action {
+        background: #252922;
+        color: #f5f5ef;
+      }
+      button:focus-visible,
+      a:focus-visible {
+        outline: 3px solid #556745;
+        outline-offset: 4px;
+      }
+      .summary {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        border-top: 1px solid #bbbfb3;
+        border-bottom: 1px solid #bbbfb3;
+        padding: 20px 0;
+        margin-top: 28px;
+      }
+      .summary span {
+        display: block;
+        color: #5c6157;
+        font-size: 12px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+      }
+      .card {
+        min-width: 0;
+        background: #f4f3ef;
+        border: 1px solid #c5c8bd;
+      }
+      .card-head {
+        padding: 16px 20px;
+        border-bottom: 1px solid #d7d7cf;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .card-head h2 {
+        font-size: 15px;
+        margin: 0;
+      }
+      .card-head a {
+        color: inherit;
+        font-size: 12px;
+      }
+      .viewport {
+        overflow: hidden;
+        background: #f4f3ef;
+      }
+      .viewport iframe {
+        display: block;
+        border: 0;
+        transform-origin: top left;
+        max-width: none;
+      }
+      .caption {
+        padding: 16px 20px;
+        font-size: 13px;
+        color: #5c6157;
+        border-top: 1px solid #d7d7cf;
+      }
+      .notes {
+        padding-top: 40px;
+      }
+      .notes ul {
+        padding-left: 20px;
+        color: #5c6157;
+      }
+      .notes a {
+        color: inherit;
+      }
+      footer {
+        font-size: 12px;
+        color: #5c6157;
+      }
+      .mobile .viewport {
+        max-width: 390px;
+        margin: auto;
+      }
+      @media (max-width: 800px) {
+        header,
+        main,
+        footer {
+          padding: 20px;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .summary {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <small>Yousuf Shahzad / Portfolio refresh</small>
+      <h1>One identity.<br />A clearer way through.</h1>
+      <p>
+        A complete, interactive overview of the proposed website. Each panel is
+        the real implementation: scroll inside it, follow a link, or open the
+        page at full size. Use the toggle to compare desktop and mobile layouts.
+      </p>
+      <nav aria-label="Preview settings">
+        <button id="desktop" aria-pressed="true">Desktop · 1280 px</button
+        ><button id="mobile" aria-pressed="false">Mobile · 390 px</button
+        ><a
+          class="action"
+          href="http://127.0.0.1:4173/"
+          target="_blank"
+          rel="noopener"
+          >Open the full website ↗</a
+        >
+      </nav>
+      <div class="summary">
+        <div>
+          <strong>Work comes first</strong
+          ><span>Selected projects before biography</span>
+        </div>
+        <div>
+          <strong>A shared visual system</strong
+          ><span>Typography, spacing, links, and diagrams</span>
+        </div>
+        <div>
+          <strong>Accessible by default</strong
+          ><span>Keyboard navigation and fluid layouts</span>
+        </div>
+        <div>
+          <strong>Static, lightweight pages</strong
+          ><span>Build-time content and metadata</span>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="grid" id="pages"></div>
+      <section class="notes">
+        <h2>What changed beneath the surface</h2>
+        <ul>
+          <li>
+            Removed the artificial introduction delay, custom cursor, scrolling
+            overrides, and WebGL dependency.
+          </li>
+          <li>
+            Added reusable layouts, project previews, links, contact callouts,
+            and a single metadata source.
+          </li>
+          <li>
+            Published Markdown is validated and safely rendered during the
+            build; drafts are excluded.
+          </li>
+          <li>
+            Every public route has static HTML, with generated sharing metadata
+            and a sitemap.
+          </li>
+          <li>Content and generated-page regression tests are part of CI.</li>
+          <li>
+            Project illustrations communicate themes; they are not product
+            screenshots. Existing project claims are preserved without invented
+            metrics or dates.
+          </li>
+        </ul>
+        <h2>All case studies</h2>
+        <p id="case-links"></p>
+      </section>
+    </main>
+    <footer>
+      Local review artifact — this gallery is not included in the public website
+      build. Start it with npm run showcase, alongside npm run preview.
+    </footer>
+    <script>
+      const base = 'http://127.0.0.1:4173'
+      const pages = [
+        [
+          'Home',
+          '/',
+          'An immediate introduction, selected work, a short biography, and direct email contact.',
+        ],
+        [
+          'Work',
+          '/projects',
+          'Five consistent project previews with concise summaries and clear case-study links.',
+        ],
+        [
+          'Case study',
+          '/projects/maths-club-website',
+          'A concept illustration, role and context, readable narrative, and next-project navigation.',
+        ],
+        [
+          'About',
+          '/about',
+          'A personal story in sections, education, and a concise toolkit.',
+        ],
+        [
+          'Contact',
+          '/contact',
+          'A prominent address, email action, copy feedback, and social links.',
+        ],
+        [
+          'Writing',
+          '/blog',
+          'A useful empty state. Navigation and previews appear when an article is published.',
+        ],
+        [
+          'Missing page',
+          '/404',
+          'A compact recovery path using the same page system.',
+        ],
+      ]
+      const grid = document.getElementById('pages')
+      for (const [name, path, description] of pages) {
+        const card = document.createElement('section')
+        card.className = 'card'
+        const head = document.createElement('div')
+        head.className = 'card-head'
+        const title = document.createElement('h2')
+        title.textContent = name
+        const link = document.createElement('a')
+        link.href = base + path
+        link.target = '_blank'
+        link.rel = 'noopener'
+        link.textContent = 'Open page ↗'
+        head.append(title, link)
+        const viewport = document.createElement('div')
+        viewport.className = 'viewport'
+        const frame = document.createElement('iframe')
+        frame.src = base + path
+        frame.title = name + ' website preview'
+        frame.loading = 'lazy'
+        viewport.append(frame)
+        const caption = document.createElement('div')
+        caption.className = 'caption'
+        caption.textContent = description
+        card.append(head, viewport, caption)
+        grid.append(card)
+      }
+      let mobile = false
+      function resize() {
+        for (const viewport of document.querySelectorAll('.viewport')) {
+          const width = mobile ? 390 : 1280
+          const height = mobile ? 844 : 1000
+          const scale = viewport.clientWidth / width
+          const frame = viewport.querySelector('iframe')
+          frame.style.width = width + 'px'
+          frame.style.height = height + 'px'
+          frame.style.transform = 'scale(' + scale + ')'
+          viewport.style.height = height * scale + 'px'
+        }
+      }
+      for (const mode of ['desktop', 'mobile'])
+        document.getElementById(mode).addEventListener('click', () => {
+          mobile = mode === 'mobile'
+          document.body.classList.toggle('mobile', mobile)
+          document
+            .getElementById('desktop')
+            .setAttribute('aria-pressed', String(!mobile))
+          document
+            .getElementById('mobile')
+            .setAttribute('aria-pressed', String(mobile))
+          resize()
+        })
+      new ResizeObserver(resize).observe(grid)
+      resize()
+      for (const [name, slug] of [
+        ['Maths Club', 'maths-club-website'],
+        ['MC-Kube', 'mc-kube'],
+        ['Stock Checker', 'game-stock-checker'],
+        ['Rava', 'rava-habit-tracker'],
+        ['Distributions', 'statistical-distribution-generator'],
+      ]) {
+        const a = document.createElement('a')
+        a.href = base + '/projects/' + slug
+        a.target = '_blank'
+        a.rel = 'noopener'
+        a.textContent = name + ' ↗'
+        a.style.marginRight = '20px'
+        document.getElementById('case-links').append(a)
+      }
+    </script>
+  </body>
+</html>

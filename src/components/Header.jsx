@@ -1,149 +1,120 @@
-import { useState, useEffect } from 'react'
-import { useLenis } from 'lenis/react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { navigation, site } from '../data/site'
+import { getAllBlogs } from '../utils/blogUtils'
 
-const Header = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const [timeDisplay, setTimeDisplay] = useState('')
-    const lenis = useLenis()
-    const navigate = useNavigate()
+const links = getAllBlogs().length
+  ? [
+      ...navigation.slice(0, 2),
+      { label: 'Writing', path: '/blog' },
+      navigation[2],
+    ]
+  : navigation
 
-    const handleNavigation = (path) => {
-        if (lenis) {
-            lenis.scrollTo(0, { immediate: true })
+export default function Header() {
+  const [open, setOpen] = useState(false)
+  const toggle = useRef(null)
+  const drawer = useRef(null)
+  const location = useLocation()
+  useEffect(() => {
+    setOpen(false)
+  }, [location.pathname])
+  useEffect(() => {
+    if (!open) return undefined
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const background = [
+      ...document.querySelectorAll(
+        '#main-content, .site-footer, .skip-link, .header-inner .wordmark',
+      ),
+    ]
+    const previousInert = background.map((element) => element.inert)
+    background.forEach((element) => {
+      element.inert = true
+    })
+    drawer.current?.querySelector('a')?.focus()
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+        toggle.current?.focus()
+      }
+      if (event.key === 'Tab') {
+        const items = [toggle.current, ...drawer.current.querySelectorAll('a')]
+        const first = items[0]
+        const last = items[items.length - 1]
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault()
+          last.focus()
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault()
+          first.focus()
         }
-        setIsMenuOpen(false)
-        navigate(path)
+      }
     }
-
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen)
+    const media = window.matchMedia('(min-width: 768px)')
+    const onResize = () => {
+      if (media.matches) setOpen(false)
     }
-
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth >= 768) setIsMenuOpen(false)
-        }
-        window.addEventListener('resize', handleResize)
-        return () => window.removeEventListener('resize', handleResize)
-    }, [])
-
-    useEffect(() => {
-        const updateTime = () => {
-            const now = new Date()
-            const londonFormatter = new Intl.DateTimeFormat('en-GB', {
-                timeZone: 'Europe/London',
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false,
-            })
-
-            const timeParts = londonFormatter.formatToParts(now)
-            const hour = timeParts.find(part => part.type === 'hour').value
-            const minute = timeParts.find(part => part.type === 'minute').value
-
-            const timeZoneName = new Intl.DateTimeFormat('en-GB', {
-                timeZone: 'Europe/London',
-                timeZoneName: 'shortOffset',
-            })
-                .formatToParts(now)
-                .find(part => part.type === 'timeZoneName').value
-
-            setTimeDisplay(`${hour}:${minute} ${timeZoneName}`)
-        }
-
-        updateTime()
-        const timer = setInterval(updateTime, 1000)
-        return () => clearInterval(timer)
-    }, [])
-
-    useEffect(() => {
-        if (lenis) isMenuOpen ? lenis.stop() : lenis.start()
-    }, [isMenuOpen, lenis])
-
-    return (
-        <div className="p-6">
-            <header className="fixed top-0 left-0 right-0 z-50 py-2 px-4 flex justify-between items-end">
-                <div className={`nav-blur ${isMenuOpen ? 'lg:w-[calc(100%-40vw)]' : 'lg:w-full'} w-full`}>
-                    <div></div><div></div><div></div><div></div> {/* blur effect */}
-                </div>
-                <div className="relative z-40 flex w-full justify-between items-end pb-2">
-                    <Link
-                        to="/"
-                        className={`text-lg sm:text-xl brand-text header-title tracking-3 -skew-x-3 hover:-skew-x-12 transition ease-in-out duration-200 ${isMenuOpen ? 'sm:opacity-100 opacity-0' : 'opacity-100'}`}
-                    >
-                        Y.SH
-                    </Link>
-                    <div className="flex items-center">
-                        <p className="hidden lg:block text-xs mr-3 text-brand-accent">
-                            London, EN • {timeDisplay}
-                        </p>
-                        <button
-                            type="button"
-                            className="p-0 bg-transparent border-0"
-                            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-                            aria-expanded={isMenuOpen}
-                            onClick={toggleMenu}
-                        >
-                            <svg
-                                className={`ham hamRotate ham1 w-6 h-6 sm:w-8 sm:h-8 cursor-pointer ${
-                                    isMenuOpen ? 'active' : ''
-                                }`}
-                                viewBox="0 0 100 100"
-                                width="80"
-                                aria-hidden="true"
-                            >
-                                <path
-                                    className="line top"
-                                    d="m 30,33 h 40 c 0,0 9.044436,-0.654587 9.044436,-8.508902 0,-7.854315 -8.024349,-11.958003 -14.89975,-10.85914 -6.875401,1.098863 -13.637059,4.171617 -13.637059,16.368042 v 40"
-                                />
-                                <path className="line middle" d="m 30,50 h 40" />
-                                <path
-                                    className="line bottom"
-                                    d="m 30,67 h 40 c 12.796276,0 15.357889,-11.717785 15.357889,-26.851538 0,-15.133752 -4.786586,-27.274118 -16.667516,-27.274118 -11.88093,0 -18.499247,6.994427 -18.435284,17.125656 l 0.252538,40"
-                                />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </header>
-
-            <div
-                className={`side-menu fixed top-0 right-0 h-full w-full sm:w-4/5 md:w-3/5 lg:w-2/5 bg-white shadow-lg transform transition-transform duration-500 ease-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} z-40 flex items-center justify-center`}
+    document.addEventListener('keydown', onKeyDown)
+    media.addEventListener('change', onResize)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      background.forEach((element, index) => {
+        element.inert = previousInert[index]
+      })
+      document.removeEventListener('keydown', onKeyDown)
+      media.removeEventListener('change', onResize)
+    }
+  }, [open])
+  return (
+    <header className="site-header">
+      <div className="shell header-inner">
+        <Link to="/" className="wordmark" aria-label={`${site.name} — home`}>
+          Y.SH
+        </Link>
+        <span className="header-location">{site.location}</span>
+        <nav className="desktop-nav" aria-label="Main navigation">
+          {links.map((link) => (
+            <NavLink key={link.path} to={link.path}>
+              {link.label}
+            </NavLink>
+          ))}
+        </nav>
+        <button
+          className="menu-toggle"
+          ref={toggle}
+          onClick={() => setOpen((value) => !value)}
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
+        >
+          {open ? 'Close' : 'Menu'}{' '}
+          <span aria-hidden="true">{open ? '−' : '+'}</span>
+        </button>
+      </div>
+      {open && (
+        <nav
+          id="mobile-navigation"
+          ref={drawer}
+          className="mobile-nav"
+          aria-label="Mobile navigation"
+        >
+          <p className="eyebrow">Explore</p>
+          {links.map((link, index) => (
+            <NavLink
+              key={link.path}
+              to={link.path}
+              onClick={() => setOpen(false)}
             >
-                <nav className="w-full px-4 sm:px-6 -tracking-5">
-                    <ul className="space-y-4 xs:space-y-6 sm:space-y-8">
-                        {[
-                            { number: '01', label: 'Home', href: '/' },
-                            { number: '02', label: 'About', href: '/about' },
-                            { number: '03', label: 'Projects', href: '/projects' },
-                            { number: '04', label: 'Blog', href: '/blog' },
-                            { number: '05', label: 'Contact', href: '/contact' },
-                        ].map(item => (
-                            <li key={item.number} className="flex justify-between items-center group">
-                                <p className="text-xl xs:text-2xl sm:text-3xl font-medium opacity-50 group-hover:brand-text group-hover:opacity-100 transition-all duration-300">
-                                    /{item.number}
-                                </p>
-                                <button
-                                    type="button"
-                                    className="text-4xl xs:text-5xl sm:text-6xl transition-all duration-300 hover:transform hover:-skew-x-6 hover:text-gray-700 hover:tracking-wide py-2 md:py-3 text-right"
-                                    onClick={() => {
-                                        handleNavigation(item.href)
-                                    }}
-                                >
-                                    {item.label}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </nav>
-            </div>
-
-            {isMenuOpen && (
-                <div className="menu-overlay fixed inset-0 bg-black opacity-50 z-30" onClick={toggleMenu}></div>
-            )}
-        </div>
-    )
+              <span className="eyebrow">0{index + 1}</span>
+              {link.label}
+              <span aria-hidden="true">↗</span>
+            </NavLink>
+          ))}
+          <a className="mobile-email" href={`mailto:${site.email}`}>
+            {site.email}
+          </a>
+        </nav>
+      )}
+    </header>
+  )
 }
-
-export default Header
