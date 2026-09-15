@@ -6,7 +6,11 @@ if (typeof window !== 'undefined') {
 }
 
 // get markdown
-const blogModules = import.meta.glob('../data/blogs/*.md', { as: 'raw', eager: true })
+const blogModules = import.meta.glob('../data/blogs/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true
+})
 
 export const getAllBlogs = () => {
   const blogs = []

@@ -12,7 +12,7 @@ const Header = () => {
         if (lenis) {
             lenis.scrollTo(0, { immediate: true })
         }
-        toggleMenu()
+        setIsMenuOpen(false)
         navigate(path)
     }
 
@@ -63,40 +63,47 @@ const Header = () => {
 
     return (
         <div className="p-6">
-            <header className="fixed top-0 left-0 right-0 z-50 py-2 px-4 flex justify-between items-end brand-bg/90">
+            <header className="fixed top-0 left-0 right-0 z-50 py-2 px-4 flex justify-between items-end">
                 <div className={`nav-blur ${isMenuOpen ? 'lg:w-[calc(100%-40vw)]' : 'lg:w-full'} w-full`}>
                     <div></div><div></div><div></div><div></div> {/* blur effect */}
                 </div>
                 <div className="relative z-40 flex w-full justify-between items-end pb-2">
-                    <Link to="/">
-                    <button
+                    <Link
+                        to="/"
                         className={`text-lg sm:text-xl brand-text header-title tracking-3 -skew-x-3 hover:-skew-x-12 transition ease-in-out duration-200 ${isMenuOpen ? 'sm:opacity-100 opacity-0' : 'opacity-100'}`}
                     >
                         Y.SH
-                    </button>
                     </Link>
                     <div className="flex items-center">
                         <p className="hidden lg:block text-xs mr-3 text-brand-accent">
                             London, EN • {timeDisplay}
                         </p>
-                        <svg
-                        className={`ham hamRotate ham1 w-6 h-6 sm:w-8 sm:h-8 cursor-pointer ${
-                            isMenuOpen ? 'active' : ''
-                        }`}
-                        viewBox="0 0 100 100"
-                        width="80"
-                        onClick={toggleMenu}
-                    >
-                        <path
-                            className="line top"
-                            d="m 30,33 h 40 c 0,0 9.044436,-0.654587 9.044436,-8.508902 0,-7.854315 -8.024349,-11.958003 -14.89975,-10.85914 -6.875401,1.098863 -13.637059,4.171617 -13.637059,16.368042 v 40"
-                        />
-                        <path className="line middle" d="m 30,50 h 40" />
-                        <path
-                            className="line bottom"
-                            d="m 30,67 h 40 c 12.796276,0 15.357889,-11.717785 15.357889,-26.851538 0,-15.133752 -4.786586,-27.274118 -16.667516,-27.274118 -11.88093,0 -18.499247,6.994427 -18.435284,17.125656 l 0.252538,40"
-                        />
-                    </svg>
+                        <button
+                            type="button"
+                            className="p-0 bg-transparent border-0"
+                            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                            aria-expanded={isMenuOpen}
+                            onClick={toggleMenu}
+                        >
+                            <svg
+                                className={`ham hamRotate ham1 w-6 h-6 sm:w-8 sm:h-8 cursor-pointer ${
+                                    isMenuOpen ? 'active' : ''
+                                }`}
+                                viewBox="0 0 100 100"
+                                width="80"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    className="line top"
+                                    d="m 30,33 h 40 c 0,0 9.044436,-0.654587 9.044436,-8.508902 0,-7.854315 -8.024349,-11.958003 -14.89975,-10.85914 -6.875401,1.098863 -13.637059,4.171617 -13.637059,16.368042 v 40"
+                                />
+                                <path className="line middle" d="m 30,50 h 40" />
+                                <path
+                                    className="line bottom"
+                                    d="m 30,67 h 40 c 12.796276,0 15.357889,-11.717785 15.357889,-26.851538 0,-15.133752 -4.786586,-27.274118 -16.667516,-27.274118 -11.88093,0 -18.499247,6.994427 -18.435284,17.125656 l 0.252538,40"
+                                />
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </header>
@@ -118,9 +125,9 @@ const Header = () => {
                                     /{item.number}
                                 </p>
                                 <button
+                                    type="button"
                                     className="text-4xl xs:text-5xl sm:text-6xl transition-all duration-300 hover:transform hover:-skew-x-6 hover:text-gray-700 hover:tracking-wide py-2 md:py-3 text-right"
                                     onClick={() => {
-                                        toggleMenu()
                                         handleNavigation(item.href)
                                     }}
                                 >

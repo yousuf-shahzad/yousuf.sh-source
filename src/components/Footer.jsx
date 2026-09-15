@@ -37,7 +37,7 @@ const Footer = () => {
                     <div className="space-y-4">
                         <h3 className="text-5xl font-bold tracking-wide title">Y.SH</h3>
                         <p className="text-sm text-gray-600">
-                            Computer Science Student & Aspiring Developer
+                            First-year Computer Science student at UCL
                         </p>
                         <Link
                             to="https://github.com/yousuf-shahzad/yousuf.sh-source"

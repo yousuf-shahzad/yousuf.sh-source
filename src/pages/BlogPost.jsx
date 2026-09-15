@@ -4,7 +4,6 @@ import { motion, useScroll, useSpring } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
-import rehypeRaw from 'rehype-raw'
 import { getBlogBySlug, formatDate, getRecentBlogs } from '../utils/blogUtils'
 import 'highlight.js/styles/github-dark.css'
 
@@ -197,7 +196,7 @@ const BlogPost = () => {
                         {/* standard markdown rendering with custom components */}
                         <ReactMarkdown
                             remarkPlugins={[remarkGfm]}
-                            rehypePlugins={[rehypeHighlight, rehypeRaw]}
+                            rehypePlugins={[rehypeHighlight]}
                             components={{
                                 h1: ({ children }) => (
                                     <h1 className="text-3xl font-bold text-brand-text mt-12 mb-6 border-b border-brand-text/10 pb-4">

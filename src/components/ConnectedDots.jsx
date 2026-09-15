@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { throttle } from 'lodash';
+import PropTypes from 'prop-types';
 
 const SECTION_NAMES = ['Home', 'About Me', 'Projects', 'Blog', 'Contact'];
 
@@ -83,6 +84,12 @@ const ConnectedNavDots = ({ currentSection = 0, totalSections = 1, setCurrentSec
   );
 };
 
+ConnectedNavDots.propTypes = {
+  currentSection: PropTypes.number,
+  totalSections: PropTypes.number,
+  setCurrentSection: PropTypes.func,
+};
+
 class NavDotsErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -105,6 +112,10 @@ class NavDotsErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
+
+NavDotsErrorBoundary.propTypes = {
+  children: PropTypes.node,
+};
 
 const ConnectedNavDotsWithErrorBoundary = (props) => (
   <NavDotsErrorBoundary>

@@ -4,8 +4,7 @@
 
 @font-face {
     font-family: 'PP Mori Book';
-    src: url('/src/assets/fonts/PP-Mori-Book.woff2') format('woff2'),
-        url('/src/assets/fonts/PP-Mori-Book.woff') format('woff');
+    src: url('/src/assets/fonts/PP-Mori-Book.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap; 
@@ -34,7 +33,17 @@ body {
     background-color: #f4f4f4;
     line-height: 1.6;
     color: #333;
-    font-smooth: always;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 .header-title {

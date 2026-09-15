@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react'
+import { lazy, Suspense, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useSpring } from 'framer-motion'
-import Cube from '../components/Cube'
 import Loader from '../components/Loader'
 import ConnectedNavDots from '../components/ConnectedDots'
 import projectsData from '../data/projectsData' // External data file
 import { getRecentBlogs, formatDate } from '../utils/blogUtils'
+
+const Cube = lazy(() => import('../components/Cube'))
 
 const initVariant = {
     initial: {
@@ -71,14 +72,6 @@ const Home = () => {
         damping: 30,
         restDelta: 0.001,
     }) // may be a bit janky prior to the loading screen disappearing
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setLoading(false)
-        }, 2000)
-
-        return () => clearTimeout(timer)
-    }, [])
 
     // hacky way to track current section using Intersection Observer
     useEffect(() => {
@@ -158,12 +151,11 @@ const Home = () => {
                                     SHAHZAD
                                 </h1>
                                 <p className="mt-4 text-lg md:text-xl lg:text-xl text-gray-600">
-                                    Computer Science Student | Aspiring
-                                    Developer
+                                    First-year Computer Science Student at UCL
                                 </p>
                                 <p className="mt-2 text-md text-gray-500">
-                                    Currently studying Mathematics, Further
-                                    Mathematics and Computer Science at A level.
+                                    Building software, exploring systems, and
+                                    studying Computer Science in London.
                                 </p>
                                 <div className="flex flex-wrap gap-4 mt-6">
                                     <a href="#section-1">
@@ -190,7 +182,9 @@ const Home = () => {
                             </div>
 
                             <div className="hidden md:block mt-10 lg:mt-0 lg:ml-16 h-50 w-50">
-                                <Cube />
+                                <Suspense fallback={null}>
+                                    <Cube />
+                                </Suspense>
                             </div>
                         </motion.div>
                     </div>
@@ -215,28 +209,51 @@ const Home = () => {
                                 variants={sectionVariants}
                             >
                                 <p className="text-xl mb-6">
-                                    I&apos;m a Computer Science student with a
-                                    passion for technology and software
-                                    development - I love breaking things down to
-                                    understand how they work, explore new
-                                    technologies and build projects that are
-                                    impactful.
+                                    I&apos;m a first-year Computer Science student
+                                    at UCL with a passion for technology and
+                                    software development - I love breaking
+                                    things down to understand how they work,
+                                    exploring new technologies and building
+                                    projects that are impactful.
                                 </p>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
                                     <div>
                                         <h3 className="text-xl font-bold mb-4">
                                             Education
                                         </h3>
-                                        <p className="text-gray-600">
-                                            Studying 3 A Levels:
-                                            <br />
-                                            Mathematics, Further Mathematics and
-                                            Computer Science
-                                            <br />
-                                            A* <strong>Extended Project Qualification</strong> on AES-256
-                                            <br />
-                                            Expected Graduation: 2026
-                                        </p>
+                                        <div className="space-y-4 text-gray-600">
+                                            <div>
+                                                <p className="font-semibold text-gray-900">
+                                                    University College London
+                                                </p>
+                                                <p>First-year Computer Science</p>
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold text-gray-900 mb-2">
+                                                    A Level Results
+                                                </p>
+                                                <ul className="space-y-1">
+                                                    {[
+                                                        ['Maths', 'A*'],
+                                                        ['Further Maths', 'A*'],
+                                                        ['Computer Science', 'A'],
+                                                        ['EPQ on AES', 'A*'],
+                                                    ].map(([subject, grade]) => (
+                                                        <li
+                                                            key={subject}
+                                                            className="flex items-baseline justify-between gap-4 border-b border-gray-100 pb-1 last:border-b-0"
+                                                        >
+                                                            <span>
+                                                                {subject}
+                                                            </span>
+                                                            <span className="font-semibold text-gray-900">
+                                                                {grade}
+                                                            </span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div>
                                         <h3 className="text-xl font-bold mb-4">

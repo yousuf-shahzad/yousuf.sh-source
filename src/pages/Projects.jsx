@@ -121,6 +121,13 @@ const Projects = () => {
                 )}
 
                 <div className="flex gap-4">
+                  <Link
+                    to={`/projects/${project.slug}`}
+                    className="text-black hover:text-gray-600 transition-colors flex items-center gap-2"
+                  >
+                    <span>Case Study</span>
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </Link>
                   {project.links.demo && (
                     <Link
                       to={project.links.demo}
