@@ -1,56 +1,41 @@
-import { BrowserRouter as Router } from 'react-router-dom'
+import { Component } from 'react'
+import PropTypes from 'prop-types'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import AnimatedRoutes from './components/AnimatedRoutes'
-import AnimatedCursor from 'react-animated-cursor'
-import { ReactLenis } from 'lenis/react'
-import { Analytics } from "@vercel/analytics/react"
-
-function App() {
-    const lenisOptions = {
-        smoothWheel: true,
-        smoothTouch: true,
-        touchMultiplier: 2,
-        infinite: false,
-        syncTouch: true,
-        normalizeScroll: true
-    }
-
-    return (
-        <Router>
-            <ReactLenis root options={lenisOptions}>
-                <div className="min-h-screen flex flex-col bg-brand-bg text-brand-text">
-                    <Header />
-                    {!('ontouchstart' in window) && (
-                        <AnimatedCursor
-                            innerSize={8}
-                            outerSize={35}
-                            innerScale={1}
-                            outerScale={1.5}
-                            outerAlpha={0.1}
-                            hasBlendMode={true}
-                            innerStyle={{
-                                backgroundColor: 'white',
-                                mixBlendMode: 'difference',
-                                zIndex: 9999,
-                            }}
-                            outerStyle={{
-                                border: '3px solid white',
-                                mixBlendMode: 'difference',
-                                zIndex: 9999,
-                            }}
-                            clickables={['button', 'a', 'input', '.ham', 'canvas', '.dot']}
-                        />
-                    )}
-                    <main className="flex-grow container mx-auto px-4 py-8">
-                        <AnimatedRoutes />
-                    </main>
-                    <Footer />
-                </div>
-            </ReactLenis>
-            <Analytics />
-        </Router>
-    )
+import SiteRoutes from './components/SiteRoutes'
+class PageErrorBoundary extends Component {
+  state = { failed: false }
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+  render() {
+    if (this.state.failed)
+      return (
+        <section className="page-intro">
+          <h1 className="display page-title">Something went wrong.</h1>
+          <p>Please reload the page or return to the homepage.</p>
+          <a className="button" href="/">
+            Return home ↗
+          </a>
+        </section>
+      )
+    return this.props.children
+  }
 }
-
-export default App
+PageErrorBoundary.propTypes = { children: PropTypes.node }
+export default function App() {
+  return (
+    <>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <Header />
+      <main id="main-content" className="shell" tabIndex={-1}>
+        <PageErrorBoundary>
+          <SiteRoutes />
+        </PageErrorBoundary>
+      </main>
+      <Footer />
+    </>
+  )
+}
