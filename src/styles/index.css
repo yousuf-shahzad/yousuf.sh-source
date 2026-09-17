@@ -159,10 +159,40 @@ body {
     padding: 0.15rem 0.35rem;
 }
 .project-toc {
-    position: sticky;
-    top: 6rem;
-    align-self: start;
     margin-bottom: 2rem;
+}
+.project-toc-mobile {
+    border: 1px solid #d1d5db;
+    border-radius: 0.75rem;
+    background: #fff;
+}
+.project-toc-mobile summary {
+    display: flex;
+    cursor: pointer;
+    list-style: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.125rem;
+    font-weight: 600;
+}
+.project-toc-mobile summary::-webkit-details-marker {
+    display: none;
+}
+.project-toc-mobile[open] summary {
+    border-bottom: 1px solid #e5e7eb;
+}
+.project-toc-mobile[open] summary span:last-child {
+    transform: rotate(45deg);
+}
+.project-toc-mobile summary span:last-child {
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+.project-toc-mobile ol {
+    padding: 0.875rem 1.125rem 1.125rem;
 }
 .project-toc ol {
     display: grid;
@@ -172,6 +202,14 @@ body {
 .project-toc a {
     text-decoration: underline;
     text-underline-offset: 0.2rem;
+}
+
+@media (min-width: 1024px) {
+    .project-toc {
+        position: sticky;
+        top: 6rem;
+        align-self: start;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
