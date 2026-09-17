@@ -1,101 +1,105 @@
-import { Link } from 'react-router-dom';
-import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom'
+import { ArrowUpRight, Github, Linkedin, Mail } from 'lucide-react'
+import { navigation } from '../data/siteData'
 
-const Footer = () => {
-    
-    const currentYear = new Date().getFullYear();
-    
-    const navigationLinks = [
-        { label: 'Home', path: '/' },
-        { label: 'About', path: '/about' },
-        { label: 'Projects', path: '/projects' },
-        { label: 'Contact', path: '/contact' }
-    ];
-    
-    const socialLinks = [
-        { 
-            icon: Github, 
-            href: 'https://github.com/yousuf-shahzad',
-            label: 'GitHub'
-        },
-        { 
-            icon: Linkedin, 
-            href: 'https://linkedin.com/in/yousuf-sh',
-            label: 'LinkedIn'
-        },
-        { 
-            icon: Mail, 
-            href: 'mailto:contact@yousuf.sh',
-            label: 'Email'
-        }
-    ];
+const socialLinks = [
+    {
+        icon: Github,
+        href: 'https://github.com/yousuf-shahzad',
+        label: 'GitHub',
+    },
+    {
+        icon: Linkedin,
+        href: 'https://linkedin.com/in/yousuf-sh',
+        label: 'LinkedIn',
+    },
+    { icon: Mail, href: 'mailto:contact@yousuf.sh', label: 'Email' },
+]
 
+export default function Footer() {
     return (
-        <footer className="brand-bg mt-auto py-12 px-6">
-            <div className="max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 pb-8 border-b border-gray-200">
-                    <div className="space-y-4">
-                        <h3 className="text-5xl font-bold tracking-wide title">Y.SH</h3>
-                        <p className="text-sm text-gray-600">
-                            Computer Science Student & Aspiring Developer
-                        </p>
-                        <Link
-                            to="https://github.com/yousuf-shahzad/yousuf.sh-source"
-                            className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors"
+        <footer className="mt-auto bg-[#171717] px-5 py-12 text-[#f4f4f4] sm:px-8 sm:py-16 lg:px-12">
+            <div className="mx-auto max-w-7xl">
+                <div className="grid gap-12 border-b border-white/15 pb-12 md:grid-cols-12 md:gap-8 md:pb-16">
+                    <section className="md:col-span-5">
+                        <h2 className="title text-5xl leading-none tracking-tight sm:text-6xl">
+                            Y.SH
+                        </h2>
+                        <a
+                            href="https://github.com/yousuf-shahzad/yousuf.sh-source"
+                            className="mt-7 inline-flex items-center gap-2 border-b border-white/50 pb-1 text-sm text-white transition-colors hover:border-white hover:text-white"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <Github className="w-4 h-4 mr-2" />
-                            View Source Code
-                            <ExternalLink className="w-3 h-3 ml-1" />
-                        </Link>
-                    </div>
+                            View source code{' '}
+                            <ArrowUpRight className="h-4 w-4" />
+                        </a>
+                    </section>
 
-                    <div>
-                        <h4 className="text-lg font-semibold mb-4 title">NAVIGATION</h4>
-                        <nav className="grid grid-cols-2 gap-2">
-                            {navigationLinks.map((link) => (
-                                <Link
-                                    key={link.label}
-                                    to={link.path}
-                                    className="text-gray-600 hover:text-gray-900 transition-colors text-sm text-left"
-                                >
-                                    {link.label}
-                                </Link>
+                    <nav
+                        className="md:col-span-3"
+                        aria-label="Footer navigation"
+                    >
+                        <h2 className="mb-5 text-xs font-medium uppercase tracking-[0.2em] text-white/50">
+                            Explore
+                        </h2>
+                        <ul className="grid gap-3">
+                            {navigation.map((item) => (
+                                <li key={item.label}>
+                                    <Link
+                                        to={item.href}
+                                        className="group inline-flex items-center gap-2 text-base text-white/75 transition-colors hover:text-white"
+                                    >
+                                        <span className="text-xs text-white/35 transition-colors group-hover:text-white/70">
+                                            {item.number}
+                                        </span>
+                                        {item.label}
+                                    </Link>
+                                </li>
                             ))}
-                        </nav>
-                    </div>
+                        </ul>
+                    </nav>
 
-                    <div>
-                        <h4 className="text-lg font-semibold mb-4 title">CONNECT</h4>
-                        <div className="flex flex-col space-y-2">
-                            {socialLinks.map((link) => (
-                                <Link
-                                    key={link.label}
-                                    to={link.href}
-                                    className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <link.icon className="w-4 h-4 mr-2" />
-                                    {link.label}
-                                    <ExternalLink className="w-3 h-3 ml-1" />
-                                </Link>
+                    <section className="md:col-span-4">
+                        <h2 className="mb-5 text-xs font-medium uppercase tracking-[0.2em] text-white/50">
+                            Connect
+                        </h2>
+                        <ul className="grid gap-3">
+                            {socialLinks.map(({ icon: Icon, href, label }) => (
+                                <li key={label}>
+                                    <a
+                                        href={href}
+                                        className="group inline-flex items-center gap-3 text-base text-white/75 transition-colors hover:text-white"
+                                        target={
+                                            href.startsWith('http')
+                                                ? '_blank'
+                                                : undefined
+                                        }
+                                        rel={
+                                            href.startsWith('http')
+                                                ? 'noopener noreferrer'
+                                                : undefined
+                                        }
+                                    >
+                                        <span className="grid h-8 w-8 place-items-center rounded-full border border-white/20 transition-colors group-hover:border-white/70">
+                                            <Icon className="h-4 w-4" />
+                                        </span>
+                                        {label}
+                                        {href.startsWith('http') && (
+                                            <ArrowUpRight className="h-3.5 w-3.5 opacity-50" />
+                                        )}
+                                    </a>
+                                </li>
                             ))}
-                        </div>
-                    </div>
+                        </ul>
+                    </section>
                 </div>
 
-                {/* Bottom Section */}
-                <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
-                    <p>&copy; {currentYear} Yousuf Shahzad. All rights reserved.</p>
-                    <p className="mt-2 md:mt-0">
-                        Crafted with <span className="text-red-500">&hearts;</span>
-                    </p>
+                <div className="flex flex-col gap-3 pt-6 text-sm text-white/45 sm:flex-row sm:items-center sm:justify-between">
+                    <p>{new Date().getFullYear()} Yousuf Shahzad</p>
+                    <p>built with &lt;3</p>
                 </div>
             </div>
         </footer>
-    );
-};
-
-export default Footer;
+    )
+}

@@ -4,16 +4,19 @@ import Footer from './components/Footer'
 import AnimatedRoutes from './components/AnimatedRoutes'
 import AnimatedCursor from 'react-animated-cursor'
 import { ReactLenis } from 'lenis/react'
-import { Analytics } from "@vercel/analytics/react"
+import useMediaQuery from './hooks/useMediaQuery'
 
 function App() {
+    const prefersReducedMotion = useMediaQuery(
+        '(prefers-reduced-motion: reduce)'
+    )
     const lenisOptions = {
-        smoothWheel: true,
-        smoothTouch: true,
+        smoothWheel: !prefersReducedMotion,
+        smoothTouch: !prefersReducedMotion,
         touchMultiplier: 2,
         infinite: false,
         syncTouch: true,
-        normalizeScroll: true
+        normalizeScroll: true,
     }
 
     return (
@@ -21,7 +24,7 @@ function App() {
             <ReactLenis root options={lenisOptions}>
                 <div className="min-h-screen flex flex-col bg-brand-bg text-brand-text">
                     <Header />
-                    {!('ontouchstart' in window) && (
+                    {!prefersReducedMotion && !('ontouchstart' in window) && (
                         <AnimatedCursor
                             innerSize={8}
                             outerSize={35}
@@ -39,16 +42,22 @@ function App() {
                                 mixBlendMode: 'difference',
                                 zIndex: 9999,
                             }}
-                            clickables={['button', 'a', 'input', '.ham', 'canvas', '.dot']}
+                            clickables={[
+                                'button',
+                                'a',
+                                'input',
+                                '.ham',
+                                'canvas',
+                                '.dot',
+                            ]}
                         />
                     )}
-                    <main className="flex-grow container mx-auto px-4 py-8">
+                    <main className="flex-grow w-full px-0 py-0 sm:container sm:mx-auto sm:px-4 sm:py-8">
                         <AnimatedRoutes />
                     </main>
                     <Footer />
                 </div>
             </ReactLenis>
-            <Analytics />
         </Router>
     )
 }

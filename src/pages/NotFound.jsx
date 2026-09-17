@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, useSpring, useTransform, useScroll } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import usePageMetadata from '../hooks/usePageMetadata'
 
 const pageVariants = {
     initial: {
@@ -72,6 +73,13 @@ const containerVariants = {
 }
 
 const NotFound = () => {
+    const location = useLocation()
+    usePageMetadata({
+        title: 'Page not found | Yousuf Shahzad',
+        description: 'This page is not available.',
+        url: `https://yousuf.sh${location.pathname}`,
+        noIndex: true,
+    })
     const { scrollY, scrollYProgress } = useScroll()
     const [isLoaded, setIsLoaded] = useState(false)
 
@@ -106,7 +114,7 @@ const NotFound = () => {
             />
 
             <div className="relative h-[75vh] flex items-center justify-center overflow-hidden">
-                <div className="relative z-10 text-center px-8 max-w-4xl mx-auto">
+                <div className="relative z-10 text-center px-5 sm:px-8 max-w-4xl mx-auto">
                     <motion.div
                         variants={containerVariants}
                         initial="hidden"
@@ -114,7 +122,7 @@ const NotFound = () => {
                     >
                         <motion.h1
                             style={{ y: titleY }}
-                            className="text-9xl md:text-[12rem] lg:text-[15rem] font-bold mb-6 title tracking-tight"
+                            className="text-7xl sm:text-9xl md:text-[12rem] lg:text-[15rem] font-bold mb-6 title tracking-tight"
                             variants={textVariants}
                         >
                             404
