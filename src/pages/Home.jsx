@@ -153,7 +153,7 @@ export default function Home() {
                                         at UCL.
                                         <br />
                                         A-levels: Mathematics A*, Further
-                                        Mathematics A*, Computer Science A.
+                                        Mathematics A*, Computer Science A*.
                                         <br />
                                         EPQ on AES-256: A*.
                                     </p>

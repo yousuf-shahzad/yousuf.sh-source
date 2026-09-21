@@ -56,7 +56,7 @@ export default function About() {
                         </p>
                         <p>
                             I completed my A-levels with A* grades in
-                            Mathematics and Further Mathematics, an A in
+                            Mathematics, Further Mathematics and 
                             Computer Science, and an A* in my EPQ on AES-256. I
                             am now studying Computer Science at UCL as a
                             first-year student, continuing to strengthen my
