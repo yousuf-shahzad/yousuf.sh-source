@@ -1,0 +1,139 @@
+/* This stylesheet is loaded only when JavaScript is disabled. */
+html body {
+    margin: 0;
+    background: #f4f4f4;
+    color: #333;
+    font-family:
+        ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+    font-size: 13px;
+    line-height: 1.75;
+}
+.nojs {
+    width: min(100% - 3rem, 94ch);
+    margin: clamp(2rem, 10vh, 6rem) auto;
+    overflow-wrap: anywhere;
+}
+.nojs .nojs-command {
+    margin: 0;
+}
+.nojs-user,
+.nojs-info h1,
+.nojs dt {
+    color: #356343;
+}
+.nojs-path,
+.nojs-muted,
+.nojs-rule {
+    color: #777;
+}
+.nojs-fetch {
+    display: grid;
+    grid-template-columns: 19ch minmax(0, 1fr);
+    align-items: center;
+    gap: 4ch;
+    margin: 2rem 0 3rem;
+}
+.nojs .nojs-art {
+    margin: 0;
+    color: #356343;
+    font: inherit;
+    line-height: 1.3;
+    white-space: pre;
+    user-select: none;
+}
+.nojs-info h1 {
+    margin: 0;
+    font: inherit;
+    font-weight: 700;
+}
+.nojs .nojs-rule {
+    margin: 0 0 0.5rem;
+}
+.nojs dl {
+    display: grid;
+    grid-template-columns: 10ch minmax(0, 1fr);
+    gap: 0.15rem 2ch;
+    margin: 0;
+}
+.nojs dt {
+    font-weight: 600;
+}
+.nojs dt::after {
+    content: ':';
+}
+.nojs dd {
+    margin: 0;
+}
+.nojs .nojs-contact {
+    margin: 1rem 0 2rem;
+}
+.nojs a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: #aaa;
+    text-underline-offset: 0.25em;
+}
+.nojs a:hover {
+    color: #356343;
+}
+.nojs a:focus-visible {
+    outline: 2px solid #356343;
+    outline-offset: 4px;
+}
+.nojs-palette {
+    display: flex;
+    margin-top: 1.25rem;
+}
+.nojs-palette i {
+    width: 2.5ch;
+    height: 1.2em;
+    background: #333;
+}
+.nojs-palette i:nth-child(2) {
+    background: #a45b55;
+}
+.nojs-palette i:nth-child(3) {
+    background: #628368;
+}
+.nojs-palette i:nth-child(4) {
+    background: #b09a61;
+}
+.nojs-palette i:nth-child(5) {
+    background: #637d98;
+}
+.nojs-palette i:nth-child(6) {
+    background: #91768d;
+}
+.nojs-palette i:nth-child(7) {
+    background: #6c9692;
+}
+.nojs-palette i:nth-child(8) {
+    background: #c7c7bf;
+}
+.nojs-cursor {
+    display: inline-block;
+    width: 1ch;
+    height: 1.1em;
+    background: #356343;
+    vertical-align: -0.15em;
+    animation: nojs-blink 1.2s step-end infinite;
+}
+@keyframes nojs-blink {
+    50% {
+        opacity: 0;
+    }
+}
+@media (max-width: 640px) {
+    .nojs-fetch {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.5rem;
+    }
+    .nojs .nojs-art {
+        font-size: 11px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .nojs-cursor {
+        animation: none;
+    }
+}

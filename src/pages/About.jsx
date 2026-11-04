@@ -10,6 +10,11 @@ const skills = {
 
 const achievements = [
     {
+        title: 'Accel AI Innovate London',
+        result: '6th place out of 42',
+        detail: '2026',
+    },
+    {
         title: 'Lockheed Martin Code Quest',
         result: '2nd place',
         detail: '2025',

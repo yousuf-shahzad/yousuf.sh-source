@@ -1,10 +1,16 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
-
 const root = process.cwd()
 const distDirectory = resolve(root, 'dist')
 const siteUrl = 'https://yousuf.sh'
 const defaultImage = `${siteUrl}/og-image.png`
+// Every route includes the complete, self-contained HTML-only portfolio.
+const indexTemplate = await readFile(resolve(root, 'index.html'), 'utf8')
+const noScriptBody = indexTemplate.match(
+    /<noscript>\s*(<main[\s\S]*?<\/main>)\s*<\/noscript>/
+)?.[1]
+if (!noScriptBody)
+    throw new Error('Missing no-JavaScript fallback in index.html.')
 
 function escapeHtml(value) {
     return String(value)
@@ -42,6 +48,7 @@ function pageHtml(page, entry) {
         <meta name="robots" content="index, follow" />
         <meta name="theme-color" content="#F4F4F4" />
         <meta name="color-scheme" content="light" />
+        <noscript><link rel="stylesheet" href="/noscript.css" /></noscript>
         <meta property="og:type" content="${page.type}" />
         <meta property="og:site_name" content="Yousuf Shahzad" />
         <meta property="og:locale" content="en_GB" />
@@ -62,17 +69,7 @@ ${styles}
     <body>
         <div id="root"></div>
         <noscript>
-            <main>
-                <h1>${escapeHtml(page.heading)}</h1>
-                <p>${escapeHtml(page.description)}</p>
-                <nav aria-label="Primary navigation">
-                    <a href="/">Home</a>
-                    <a href="/about">About</a>
-                    <a href="/projects">Projects</a>
-                    <a href="/blog">Blog</a>
-                    <a href="/contact">Contact</a>
-                </nav>
-            </main>
+            ${noScriptBody}
         </noscript>
         <script type="module" crossorigin src="/${entry.file}"></script>
     </body>
@@ -167,7 +164,7 @@ if (!entry)
     )
 
 const projects = JSON.parse(projectsSource)
-const blogs = JSON.parse(blogsSource)
+const blogs = JSON.parse(blogsSource).filter((blog) => !blog.noIndex)
 const projectPages = projects
     .filter((project) => project.caseStudyStatus === 'published')
     .map((project) => {
@@ -193,16 +190,16 @@ const blogPages = blogs
         const route = `/blog/${blog.slug}`
         const page = {
             route,
-            title: `${blog.frontmatter.title} | Yousuf Shahzad`,
-            heading: blog.frontmatter.title,
-            description: blog.frontmatter.excerpt,
+            title: `${blog.title} | Yousuf Shahzad`,
+            heading: blog.title,
+            description: blog.excerpt,
             url: `${siteUrl}${route}/`,
-            image: blog.frontmatter.headerImage || defaultImage,
-            imageAlt: blog.frontmatter.title,
+            image: blog.headerImage || defaultImage,
+            imageAlt: blog.title,
             type: 'article',
             schemaType: 'BlogPosting',
-            datePublished: blog.frontmatter.date,
-            keywords: blog.frontmatter.tags,
+            datePublished: blog.date,
+            keywords: blog.tags,
         }
         return { ...page, structuredData: pageSchema(page) }
     })

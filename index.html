@@ -47,6 +47,7 @@
         <meta name="application-name" content="Yousuf Shahzad" />
         <meta name="theme-color" content="#F4F4F4" />
         <meta name="color-scheme" content="light" />
+        <noscript><link rel="stylesheet" href="/noscript.css" /></noscript>
         <script type="application/ld+json">
             {
                 "@context": "https://schema.org",
@@ -94,18 +95,79 @@
     <body>
         <div id="root"></div>
         <noscript>
-            <main>
-                <h1>Yousuf Shahzad — Computer Science Student at UCL</h1>
-                <p>
-                    Portfolio featuring software projects, writing, and
-                    achievements.
+            <main class="nojs">
+                <p class="nojs-command">
+                    <span class="nojs-user">visitor@yousuf.sh</span
+                    ><span class="nojs-path">:~</span>$ ./portfolio --no-js
                 </p>
-                <nav aria-label="Primary navigation">
-                    <a href="/about/">About</a>
-                    <a href="/projects/">Projects</a>
-                    <a href="/blog/">Blog</a>
-                    <a href="/contact/">Contact</a>
-                </nav>
+                <section
+                    class="nojs-fetch"
+                    aria-label="Portfolio system information"
+                >
+                    <pre class="nojs-art" aria-hidden="true">
+YY      YY   SSSSSS
+ YY    YY   SS
+  YY  YY    SS
+   YYYY      SSSSS
+    YY           SS
+    YY           SS
+    YY      SSSSSS</pre>
+                    <div class="nojs-info">
+                        <h1>yousuf<span class="nojs-muted">@</span>ucl</h1>
+                        <p class="nojs-rule" aria-hidden="true">
+                            --------------------------
+                        </p>
+                        <dl>
+                            <dt>Name</dt>
+                            <dd>Yousuf Shahzad</dd>
+                            <dt>Role</dt>
+                            <dd>Computer Science student</dd>
+                            <dt>Host</dt>
+                            <dd>University College London</dd>
+                            <dt>Year</dt>
+                            <dd>First year</dd>
+                            <dt>Languages</dt>
+                            <dd>Python, JavaScript, SQL, HTML/CSS</dd>
+                            <dt>Tools</dt>
+                            <dd>React, Node.js, Flask, Git, PostgreSQL</dd>
+                            <dt>Interests</dt>
+                            <dd>Software, design, video editing, sports</dd>
+                            <dt>Runtime</dt>
+                            <dd>HTML + CSS / JavaScript disabled</dd>
+                        </dl>
+                        <div class="nojs-palette" aria-hidden="true">
+                            <i></i><i></i><i></i><i></i><i></i><i></i><i></i
+                            ><i></i>
+                        </div>
+                    </div>
+                </section>
+                <p class="nojs-command">
+                    <span class="nojs-user">visitor@yousuf.sh</span
+                    ><span class="nojs-path">:~</span>$ cat contact.txt
+                </p>
+                <dl class="nojs-contact">
+                    <dt>Email</dt>
+                    <dd>
+                        <a href="mailto:contact@yousuf.sh">contact@yousuf.sh</a>
+                    </dd>
+                    <dt>GitHub</dt>
+                    <dd>
+                        <a href="https://github.com/yousuf-shahzad"
+                            >github.com/yousuf-shahzad</a
+                        >
+                    </dd>
+                    <dt>LinkedIn</dt>
+                    <dd>
+                        <a href="https://linkedin.com/in/yousuf-sh"
+                            >linkedin.com/in/yousuf-sh</a
+                        >
+                    </dd>
+                </dl>
+                <p class="nojs-command nojs-idle">
+                    <span class="nojs-user">visitor@yousuf.sh</span
+                    ><span class="nojs-path">:~</span>$
+                    <span class="nojs-cursor" aria-hidden="true"></span>
+                </p>
             </main>
         </noscript>
         <script type="module" src="/src/main.jsx"></script>
