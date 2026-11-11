@@ -14,7 +14,10 @@ const contacts = [
         href: 'https://linkedin.com/in/yousuf-sh',
         label: 'linkedin.com/in/yousuf-sh',
     },
+    { mark: 'CV', href: '/cv.pdf', label: 'yousuf.sh/cv.pdf' },
 ]
+
+const opensInNewTab = (href) => href.startsWith('http') || href.endsWith('.pdf')
 
 export default function Contact() {
     usePageMetadata({
@@ -52,12 +55,12 @@ export default function Contact() {
                                     key={contact.href}
                                     href={contact.href}
                                     target={
-                                        contact.href.startsWith('http')
+                                        opensInNewTab(contact.href)
                                             ? '_blank'
                                             : undefined
                                     }
                                     rel={
-                                        contact.href.startsWith('http')
+                                        opensInNewTab(contact.href)
                                             ? 'noopener noreferrer'
                                             : undefined
                                     }
@@ -77,17 +80,31 @@ export default function Contact() {
                         </h2>
                         <p className="text-gray-600">
                             I prefer email, so if you send a message, I&apos;ll
-                            reply as soon as I can.
+                            reply as soon as I can. My CV has the full picture
+                            of my education, experience and projects.
                         </p>
-                        <a
-                            href="mailto:contact@yousuf.sh"
-                            className="inline-block group px-6 py-3 mt-5 border-2 border-black bg-black text-white text-lg rounded hover:bg-gray-800 transition"
-                        >
-                            Email me{' '}
-                            <span className="ml-2 group-hover:ml-6 duration-500">
-                                →
-                            </span>
-                        </a>
+                        <div className="flex flex-wrap gap-4 mt-5">
+                            <a
+                                href="mailto:contact@yousuf.sh"
+                                className="inline-block group px-6 py-3 border-2 border-black bg-black text-white text-lg rounded hover:bg-gray-800 transition"
+                            >
+                                Email me{' '}
+                                <span className="ml-2 group-hover:ml-6 duration-500">
+                                    →
+                                </span>
+                            </a>
+                            <a
+                                href="/cv.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-block group px-6 py-3 border-2 border-black text-black text-lg rounded hover:bg-black hover:text-white transition"
+                            >
+                                View my CV{' '}
+                                <span className="ml-2 group-hover:ml-6 duration-500">
+                                    ↗
+                                </span>
+                            </a>
+                        </div>
                     </section>
                 </div>
             </div>

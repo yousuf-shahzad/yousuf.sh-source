@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, Github, Linkedin, Mail } from 'lucide-react'
+import { ArrowUpRight, FileText, Github, Linkedin, Mail } from 'lucide-react'
 import { navigation } from '../data/siteData'
 
 const socialLinks = [
@@ -14,7 +14,10 @@ const socialLinks = [
         label: 'LinkedIn',
     },
     { icon: Mail, href: 'mailto:contact@yousuf.sh', label: 'Email' },
+    { icon: FileText, href: '/cv.pdf', label: 'CV' },
 ]
+
+const opensInNewTab = (href) => href.startsWith('http') || href.endsWith('.pdf')
 
 export default function Footer() {
     return (
@@ -71,12 +74,12 @@ export default function Footer() {
                                         href={href}
                                         className="group inline-flex items-center gap-3 text-base text-white/75 transition-colors hover:text-white"
                                         target={
-                                            href.startsWith('http')
+                                            opensInNewTab(href)
                                                 ? '_blank'
                                                 : undefined
                                         }
                                         rel={
-                                            href.startsWith('http')
+                                            opensInNewTab(href)
                                                 ? 'noopener noreferrer'
                                                 : undefined
                                         }
@@ -85,7 +88,7 @@ export default function Footer() {
                                             <Icon className="h-4 w-4" />
                                         </span>
                                         {label}
-                                        {href.startsWith('http') && (
+                                        {opensInNewTab(href) && (
                                             <ArrowUpRight className="h-3.5 w-3.5 opacity-50" />
                                         )}
                                     </a>

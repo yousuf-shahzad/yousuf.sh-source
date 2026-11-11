@@ -150,15 +150,28 @@ export default function About() {
                         I&apos;m always keen to learn from ambitious projects
                         and thoughtful collaborations.
                     </p>
-                    <Link
-                        to="/contact"
-                        className="inline-flex group px-6 py-3 bg-black border-2 border-black text-white text-lg rounded hover:bg-gray-800 transition"
-                    >
-                        Get in touch{' '}
-                        <span className="ml-2 group-hover:ml-6 duration-500">
-                            →
-                        </span>
-                    </Link>
+                    <div className="flex flex-wrap gap-4">
+                        <Link
+                            to="/contact"
+                            className="inline-flex group px-6 py-3 bg-black border-2 border-black text-white text-lg rounded hover:bg-gray-800 transition"
+                        >
+                            Get in touch{' '}
+                            <span className="ml-2 group-hover:ml-6 duration-500">
+                                →
+                            </span>
+                        </Link>
+                        <a
+                            href="/cv.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex group px-6 py-3 border-2 border-black text-black text-lg rounded hover:bg-black hover:text-white transition"
+                        >
+                            Read my CV{' '}
+                            <span className="ml-2 group-hover:ml-6 duration-500">
+                                ↗
+                            </span>
+                        </a>
+                    </div>
                 </section>
             </div>
         </PageTransition>
